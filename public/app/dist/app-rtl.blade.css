@@ -1,0 +1,156 @@
+body {
+    direction: rtl;
+}
+
+.header-account ul {
+    margin-left: 21px;
+    margin-right: 0;
+}
+
+.header-account ul li {
+    margin-left: 4px;
+    margin-right: 0;
+}
+
+.main-header .main-menu .navigation > li {
+    margin-left: 27px;
+    margin-right: 0;
+}
+
+.main-header .main-menu .navigation > li:last-child {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.main-header .main-menu .navigation > li:last-child > a {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.header-top_nav a {
+    margin-left: 15px;
+    margin-right: 0;
+    padding-left: 15px;
+    padding-right: 0;
+}
+
+.header-top_nav a::before {
+    content: "/";
+    left: -4px;
+    right: unset;
+}
+
+.header-top_nav a:last-child {
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.header-top_nav a:last-child::before {
+    display: none;
+}
+
+/* Other specific adjustments for your layout */
+.text-left {
+    text-align: right !important;
+}
+
+.text-right {
+    text-align: left !important;
+}
+
+.float-left {
+    float: right !important;
+}
+
+.float-right {
+    float: left !important;
+}
+
+
+/* Original */
+.margin-left-10 {
+    margin-left: 10px;
+}
+
+/* RTL version */
+.margin-left-10 {
+    margin-right: 10px;
+}
+
+
+/* Original */
+.left-20 {
+    left: 20px;
+}
+
+/* RTL version */
+.left-20 {
+    right: 20px;
+}
+/* RTL Adjustments */
+body {
+    direction: rtl;
+}
+
+.header-account ul {
+    margin-left: 21px;
+    margin-right: 0;
+}
+
+.header-account ul li {
+    margin-left: 4px;
+    margin-right: 0;
+}
+
+.main-header .main-menu .navigation > li {
+    margin-left: 27px;
+    margin-right: 0;
+}
+
+.main-header .main-menu .navigation > li:last-child {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.main-header .main-menu .navigation > li:last-child > a {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.header-top_nav a {
+    margin-left: 15px;
+    margin-right: 0;
+    padding-left: 15px;
+    padding-right: 0;
+}
+
+.header-top_nav a::before {
+    content: "/";
+    left: -4px;
+    right: unset;
+}
+
+.header-top_nav a:last-child {
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.header-top_nav a:last-child::before {
+    display: none;
+}
+
+.text-left {
+    text-align: right !important;
+}
+
+.text-right {
+    text-align: left !important;
+}
+
+.float-left {
+    float: right !important;
+}
+
+.float-right {
+    float: left !important;
+}
