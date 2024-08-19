@@ -692,6 +692,58 @@ Route::post('delete-all-clients', [
 /*------------ end Of clients ----------*/
 
 
+/*------------ start Of BookingCondition ----------*/
+Route::get('booking-conditions', [
+    'uses'      => 'BookingConditionController@index',
+    'as'        => 'booking-conditions.index',
+    'title'     => 'dashboard.booking-conditions',
+    'type'      => 'parent',
+    'child'     => [ 'booking-conditions.create','booking-conditions.edit', 'booking-conditions.destroy'  ,'booking-conditions.deleteAll']
+]);
+
+# booking-conditions store
+Route::get('booking-conditions/create', [
+    'uses'  => 'BookingConditionController@create',
+    'as'    => 'booking-conditions.create',
+    'title' => ['actions.add', 'dashboard.booking-conditions']
+]);
+
+# booking-conditions store
+Route::post('booking-conditions/store', [
+    'uses'  => 'BookingConditionController@store',
+    'as'    => 'booking-conditions.store',
+    'title' => ['actions.add', 'dashboard.booking-conditions']
+]);
+
+# booking-conditions update
+Route::get('booking-conditions/{id}/edit', [
+    'uses'  => 'BookingConditionController@edit',
+    'as'    => 'booking-conditions.edit',
+    'title' => ['actions.edit', 'dashboard.booking-conditions']
+]);
+
+# booking-conditions update
+Route::put('booking-conditions/{id}', [
+    'uses'  => 'BookingConditionController@update',
+    'as'    => 'booking-conditions.update',
+    'title' => ['actions.edit', 'dashboard.booking-conditions']
+]);
+
+# booking-conditions delete
+Route::delete('booking-conditions/{id}', [
+    'uses'  => 'BookingConditionController@destroy',
+    'as'    => 'booking-conditions.destroy',
+    'title' => ['actions.delete', 'dashboard.booking-conditions']
+]);
+#booking-conditions all clients
+Route::post('delete-all-booking-conditions', [
+    'uses'  => 'BookingConditionController@deleteAll',
+    'as'    => 'booking-conditions.deleteAll',
+    'title' => ['actions.delete_all', 'dashboard.booking-conditions']
+]);
+/*------------ end Of BookingCondition ----------*/
+
+
 
 
   

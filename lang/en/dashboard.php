@@ -165,5 +165,5 @@ return [
 
     'phone number'            =>'phone number',
     'procedures'              =>'procedures',
-
+    'booking-conditions'       =>'Booking Conditions'
 ];

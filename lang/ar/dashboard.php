@@ -182,7 +182,8 @@ return [
     'clients'                 => 'العملاء',
     'client'                 => 'عميل',
     'phone number'            =>'رقم الهاتف',
-    'procedures'              =>'إجراءات'
+    'procedures'              =>'إجراءات',
+    'booking-conditions'      =>'شروط الحجز'
 
 
 ];
