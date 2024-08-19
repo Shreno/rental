@@ -7,6 +7,8 @@ use App\Repositories\IClientRepository;
 use App\Requests\dashboard\CreateUpdateClientRequest;
 use Illuminate\Http\Request;
 
+use App\Models\User;
+
 use Illuminate\Support\Facades\Storage;
 
 class ClientController extends Controller
@@ -63,6 +65,7 @@ class ClientController extends Controller
 
     public function update(CreateUpdateClientRequest $request , $id)
     {
+        $data = $request->all();
 
         $user = $this->clientRepository->findOne($id);
         $data['is_active'] = $request->is_active == 'on' ? '1' : '0';
