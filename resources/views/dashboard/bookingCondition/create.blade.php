@@ -1,5 +1,5 @@
 @extends('dashboard.layouts.app')
-@section('pageTitle' , isset($bookingCondition) ? __('dashboard.edit_title', ['page_title' => __('dashboard.bookingCondition')]) : __('dashboard.create_title', ['page_title' => __('dashboard.bookingCondition')]))
+@section('pageTitle' , isset($bookingCondition) ? __('dashboard.edit_title', ['page_title' => __('dashboard.booking-conditions')]) : __('dashboard.create_title', ['page_title' => __('dashboard.bookingCondition')]))
 
 @section('content')
 
@@ -69,7 +69,7 @@
                                                     />
                                                 <!--end::Input-->
                                                 <!--begin::Description-->
-                                                <div class="text-muted fs-7">@lang('dashboard.name_desc' , ['page_title' => __('dashboard.bookingCondition')])</div>
+                                                <div class="text-muted fs-7">@lang('dashboard.name_desc' , ['page_title' => __('dashboard.booking-conditions')])</div>
                                                 <!--end::Description-->
                                             </div>
                                             <!--end::Input group-->
@@ -84,7 +84,7 @@
                                                     style="height: 249px;">{{ old('desc.ar', isset($bookingCondition) && $bookingCondition->desc ? $bookingCondition->getTranslations('desc')['ar'] : '') }}</textarea>
                                                 <!--end::Editor-->
                                                 <!--begin::Description-->
-                                                <div class="text-muted fs-7">@lang('dashboard.desc_requirments' ,['page_title' => __('dashboard.bookingCondition')])</div>
+                                                <div class="text-muted fs-7">@lang('dashboard.desc_requirments' ,['page_title' => __('dashboard.booking-conditions')])</div>
                                                 <!--end::Description-->
                                             </div>
                                             <!--end::Input group-->
@@ -121,7 +121,7 @@
                                                     />
                                                 <!--end::Input-->
                                                 <!--begin::Description-->
-                                                <div class="text-muted fs-7">@lang('dashboard.name_desc' , ['page_title' => __('dashboard.bookingCondition')])</div>
+                                                <div class="text-muted fs-7">@lang('dashboard.name_desc' , ['page_title' => __('dashboard.booking-conditions')])</div>
                                                 <!--end::Description-->
                                             </div>
                                             <!--end::Input group-->
@@ -135,7 +135,7 @@
                                                     style="height: 249px;">{{ old('desc.en', isset($bookingCondition) && $bookingCondition->desc ? $bookingCondition->getTranslations('desc')['en'] : '') }}</textarea>
                                                 <!--end::Editor-->
                                                 <!--begin::Description-->
-                                                <div class="text-muted fs-7">@lang('dashboard.desc_requirments' ,['page_title' => __('dashboard.bookingCondition')])</div>
+                                                <div class="text-muted fs-7">@lang('dashboard.desc_requirments' ,['page_title' => __('dashboard.booking-conditions')])</div>
                                                 <!--end::Description-->
                                             </div>
                                             <!--end::Input group-->
