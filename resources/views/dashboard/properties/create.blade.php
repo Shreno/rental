@@ -109,7 +109,7 @@
                             </div>
                             <div class="mb-10 fv-row">
                                 <label class="form-label">ميزات العقار</label>
-                                <select name="property_features[]" id="property_features" multiple class="form-select mb-2" multiple>
+                                <select name="property_features[]" id="property_features" multiple class="form-select mb-2" multiple >
                                     @foreach($propertyFeatures as $propertyFeature)
                                         <option value="{{ $propertyFeature->id }}" {{ isset($property) && $property->propertyFeatures->contains($propertyFeature->id) ? 'selected' : '' }}>
                                             {{ $propertyFeature->name }}
@@ -117,6 +117,32 @@
                                     @endforeach
                                 </select>
                             </div>
+                            {{--  --}}
+                            <div class="mb-10 fv-row">
+                                <label class="form-label">@lang('dashboard.booking-conditions')</label>
+                                <select name="bookingConditions[]" id="property_conditions" multiple class="form-select mb-2" multiple>
+                                    @foreach($bookingConditions as $bookingConditions)
+                                        <option value="{{ $bookingConditions->id }}" {{ isset($property) && $property->propertyBookingConditions->contains($bookingConditions->id) ? 'selected' : '' }}>
+                                            {{ $bookingConditions->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="mb-5 fv-row">
+                                <label class="form-label">@lang('dashboard.check_in_time')</label>
+                                <input type="time" name="check_in_time" value="{{old('check_in_time', isset($property) ? $property->check_in_time : '') }}" class="form-control mb-2">
+                                
+                            </div>
+                            <div class="mb-5 fv-row">
+                                <label class="form-label">@lang('dashboard.check_out_time')</label>
+                                <input type="time" value="{{ old('check_out_time', isset($property) ? $property->check_out_time : '') }}" name="check_out_time" class="form-control mb-2">
+                                
+                            </div>
+
+
+
+
+                            {{--  --}}
                             <div class="mb-10 fv-row">
                                 <label class="form-label">الصور</label>
                                 <input type="file" name="images[]" class="form-control mb-2" multiple />
@@ -145,5 +171,8 @@
     $("#primary_amenities").select2();
     $("#sub_amenities").select2();
     $("#property_features").select2();
+    $("#property_conditions").select2();
+
+
 </script>
 @endpush

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\BookingCondition;
 use App\Models\Property;
 use App\Models\City;
 use App\Models\Neighborhood;
@@ -25,12 +26,14 @@ class PropertyController extends Controller
     {
         $cities = City::all();
         $neighborhoods = Neighborhood::all();
-        $users = User::all();
+        $users = User::where('user_type',2)->get();
         $primaryAmenities = PrimaryAmenity::all();
         $subAmenities = SubAmenity::all();
         $propertyFeatures = PropertyFeature::all();
+        $bookingConditions=BookingCondition::all();
+
         
-        return view('dashboard.properties.create', compact('cities', 'neighborhoods', 'users', 'primaryAmenities', 'subAmenities', 'propertyFeatures'));
+        return view('dashboard.properties.create', compact('cities', 'neighborhoods', 'users', 'primaryAmenities', 'subAmenities', 'propertyFeatures','bookingConditions'));
     }
 
     public function store(Request $request)
@@ -50,6 +53,9 @@ class PropertyController extends Controller
             'sub_amenities' => 'required|array',
             'property_features' => 'required|array',
             'images' => 'required|array',
+            'bookingConditions'=>'nullable|array',
+            'check_in_time' => 'required|date_format:H:i', // Validate check-in time
+            'check_out_time' => 'required|date_format:H:i|after:check_in_time', // Validate check-out time
         ]);
 
         $property = Property::create([
@@ -61,11 +67,19 @@ class PropertyController extends Controller
             'neighborhood_id' => $data['neighborhood_id'],
             'direction' => $data['direction'],
             'user_id' => $data['user_id'],
+            'check_in_time'=>$data['check_in_time'],
+            'check_out_time'=>$data['check_out_time'],
         ]);
 
         $property->primaryAmenities()->attach($data['primary_amenities']);
         $property->subAmenities()->attach($data['sub_amenities']);
         $property->propertyFeatures()->attach($data['property_features']);
+        if($request->bookingConditions!==null)
+        {
+            $property->propertyBookingConditions()->attach($data['bookingConditions']);
+
+        }
+
 
         foreach ($data['images'] as $image) {
             $property->images()->create(['image' => $image]);
@@ -79,12 +93,14 @@ class PropertyController extends Controller
         $property = Property::findOrFail($property);
         $cities = City::all();
         $neighborhoods = Neighborhood::all();
-        $users = User::all();
+        $users = User::where('user_type',2)->get();
         $primaryAmenities = PrimaryAmenity::all();
         $subAmenities = SubAmenity::all();
         $propertyFeatures = PropertyFeature::all();
+        $bookingConditions=BookingCondition::all();
 
-        return view('dashboard.properties.create', compact('property', 'cities', 'neighborhoods', 'users', 'primaryAmenities', 'subAmenities', 'propertyFeatures'));
+
+        return view('dashboard.properties.create', compact('bookingConditions','property', 'cities', 'neighborhoods', 'users', 'primaryAmenities', 'subAmenities', 'propertyFeatures'));
     }
 
     public function update(Request $request,  $property)
@@ -104,8 +120,15 @@ class PropertyController extends Controller
             'primary_amenities' => 'required|array',
             'sub_amenities' => 'required|array',
             'property_features' => 'required|array',
+            'bookingConditions'=>'nullable|array',
             'images' => 'nullable|array',
+            'check_in_time' => 'required', // Validate check-in time
+            'check_out_time' => 'required', // Validate check-out time
+
+
         ]);
+
+
 
     
 
@@ -118,11 +141,20 @@ class PropertyController extends Controller
             'neighborhood_id' => $data['neighborhood_id'],
             'direction' => $data['direction'],
             'user_id' => $data['user_id'],
+            'check_in_time'=>$data['check_in_time'],
+            'check_out_time'=>$data['check_out_time'],
+
         ]);
 
         $property->primaryAmenities()->sync($data['primary_amenities']);
         $property->subAmenities()->sync($data['sub_amenities']);
         $property->propertyFeatures()->sync($data['property_features']);
+
+        if($request->bookingConditions!==null)
+        {
+            $property->propertyBookingConditions()->attach($data['bookingConditions']);
+
+        }
 
         if (isset($data['images'])) {
             $property->images()->delete();

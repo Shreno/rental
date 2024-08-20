@@ -183,7 +183,12 @@ return [
     'client'                 => 'عميل',
     'phone number'            =>'رقم الهاتف',
     'procedures'              =>'إجراءات',
-    'booking-conditions'      =>'شروط الحجز'
+    'booking-conditions'      =>'شروط الحجز',
+    'banks'                  =>'البنوك',
+    'bank'                  =>'بنك',
+    'check_in_time'           =>'وقت الوصول',
+    'check_out_time'          =>'وقت المغادرة'
+
 
 
 ];

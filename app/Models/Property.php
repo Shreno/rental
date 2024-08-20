@@ -47,6 +47,13 @@ class Property extends Model
         return $this->belongsToMany(PropertyFeature::class, 'property_property_feature');
     }
 
+    public function propertyBookingConditions()
+    {
+        return $this->belongsToMany(BookingCondition::class, 'property_BookingCondition');
+    }
+
+    
+
     public function images()
     {
         return $this->hasMany(PropertyImage::class);

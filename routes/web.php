@@ -742,6 +742,56 @@ Route::post('delete-all-booking-conditions', [
     'title' => ['actions.delete_all', 'dashboard.booking-conditions']
 ]);
 /*------------ end Of BookingCondition ----------*/
+/*------------ start Of Banks ----------*/
+Route::get('banks', [
+    'uses'      => 'BankController@index',
+    'as'        => 'banks.index',
+    'title'     => 'dashboard.banks',
+    'type'      => 'parent',
+    'child'     => [ 'banks.create','banks.edit', 'banks.destroy'  ,'banks.deleteAll']
+]);
+
+# banks store
+Route::get('banks/create', [
+    'uses'  => 'BankController@create',
+    'as'    => 'banks.create',
+    'title' => ['actions.add', 'dashboard.banks']
+]);
+
+# banks store
+Route::post('banks/store', [
+    'uses'  => 'BankController@store',
+    'as'    => 'banks.store',
+    'title' => ['actions.add', 'dashboard.banks']
+]);
+
+# banks update
+Route::get('banks/{id}/edit', [
+    'uses'  => 'BankController@edit',
+    'as'    => 'banks.edit',
+    'title' => ['actions.edit', 'dashboard.banks']
+]);
+
+# banks update
+Route::put('banks/{id}', [
+    'uses'  => 'BankController@update',
+    'as'    => 'banks.update',
+    'title' => ['actions.edit', 'dashboard.banks']
+]);
+
+# banks delete
+Route::delete('banks/{id}', [
+    'uses'  => 'BankController@destroy',
+    'as'    => 'banks.destroy',
+    'title' => ['actions.delete', 'dashboard.banks']
+]);
+#banks all clients
+Route::post('delete-all-banks', [
+    'uses'  => 'BankController@deleteAll',
+    'as'    => 'banks.deleteAll',
+    'title' => ['actions.delete_all', 'dashboard.banks']
+]);
+/*------------ end Of Banks ----------*/
 
 
 

@@ -165,5 +165,9 @@ return [
 
     'phone number'            =>'phone number',
     'procedures'              =>'procedures',
-    'booking-conditions'       =>'Booking Conditions'
+    'booking-conditions'       =>'Booking Conditions',
+    'banks'                    =>'Banks',
+    'bank'                    =>'Bank',
+    'check_in_time'           =>'check in time',
+    'check_out_time'          =>'check out time'
 ];
