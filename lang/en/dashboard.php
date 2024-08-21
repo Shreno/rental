@@ -174,4 +174,6 @@ return [
     'booking'                 =>'Booking',
     'rate_per_day'            =>'Rate per day',
     'site_commission'         =>'Site Commission',
+    'start_date'              =>'start_date',
+    'end_date'                =>'end_date'
 ];

@@ -191,7 +191,9 @@ return [
     'bookings'                =>'الحجوزات',
     'booking'                 =>'حجز',
     'rate_per_day'            =>'سعر الحجز لليوم',
-    'site_commission'         =>'نسبة الموقع'
+    'site_commission'         =>'نسبة الموقع',
+    'start_date'              =>'تاريخ بداية الحجز',
+    'end_date'                =>'تاريخ نهاية الحجز'
 
 
 
