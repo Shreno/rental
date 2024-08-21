@@ -25,6 +25,7 @@ class SettingController extends Controller
     public function index()
     {
         $data =  SettingService::appInformations( $this->modal->pluck('value', 'key'));
+        
 
         $gateways = SMS::latest()->get();
 

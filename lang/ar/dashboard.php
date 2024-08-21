@@ -189,7 +189,9 @@ return [
     'check_in_time'           =>'وقت الوصول',
     'check_out_time'          =>'وقت المغادرة',
     'bookings'                =>'الحجوزات',
-    'booking'                 =>'حجز'
+    'booking'                 =>'حجز',
+    'rate_per_day'            =>'سعر الحجز لليوم',
+    'site_commission'         =>'نسبة الموقع'
 
 
 

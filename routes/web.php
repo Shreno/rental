@@ -538,7 +538,7 @@ Route::post('delete-all-property-features', [
     ]);
 
     #update
-    Route::put('settings', [
+    Route::post('settings', [
         'uses' => 'SettingController@update',
         'as' => 'update-settings', 
         'title' =>  ['actions.edit', 'dashboard.settings']

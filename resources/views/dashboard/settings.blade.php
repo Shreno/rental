@@ -131,6 +131,26 @@
                                     <!--end::Input-->
                                 <div class="fv-plugins-message-container invalid-feedback"></div></div>
                             </div>
+                            {{-- site_commission --}}
+                            <div class="row fv-row mb-7 fv-plugins-icon-container">
+                                <div class="col-md-3 text-md-end">
+                                    <!--begin::Label-->
+                                    <label class="fs-6 fw-semibold form-label mt-3">
+                                        <span class="required">@lang('dashboard.site_commission')</span>
+                                        <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" aria-label="Set the title of the store for SEO." data-kt-initialized="1"></i>
+                                    </label>
+                                    <!--end::Label-->
+                                </div>
+                                <div class="col-md-9">
+                                    <!--begin::Input-->
+                                    <input type="text" class="form-control form-control-solid" name="site_commission" value="{{$data['site_commission']}}">
+                                    <!--end::Input-->
+                                <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                            </div>
+
+
+
+                            {{--  --}}
                             <!--end::Input group-->
                             <!--begin::Input group-->
                             <div class="row fv-row mb-7 fv-plugins-icon-container">
@@ -258,6 +278,8 @@
                         <!--begin::Form-->
                         <form method="POST"  class="form fv-plugins-bootstrap5 fv-plugins-framework store" action="{{ route('update-settings') }}">
                            @csrf
+
+
                             <!--begin::Heading-->
                             <div class="row mb-7">
                                 <div class="col-md-9 offset-md-3">

@@ -13,15 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('booking_conditions', function (Blueprint $table) {
-            $table->id();
+        Schema::table('properties', function (Blueprint $table) {
+            $table->decimal('rate_per_day', 10, 2)->after('check_out_time')->default(0);
 
-            $table->string('name');
-            $table->string('desc')->nullable();
-            $table->string('icon')->nullable();
-
-            
-            $table->timestamps();
         });
     }
 
@@ -32,6 +26,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('booking_conditions');
+        Schema::table('properties', function (Blueprint $table) {
+            //
+        });
     }
 };

@@ -171,5 +171,7 @@ return [
     'check_in_time'           =>'check in time',
     'check_out_time'          =>'check out time',
     'bookings'                 =>'Bookings',
-    'booking'                 =>'Booking'
+    'booking'                 =>'Booking',
+    'rate_per_day'            =>'Rate per day',
+    'site_commission'         =>'Site Commission',
 ];

@@ -71,6 +71,8 @@ class SettingService {
             'google_places'          => $app_info['google_places']?? "" ,
             'google_analytics'       => $app_info['google_analytics']?? "" ,
             'live_chat'              => $app_info['live_chat']?? "" ,
+            'site_commission'              => $app_info['site_commission']?? "" ,
+
         ];
         return $data;
     }

@@ -138,6 +138,11 @@
                                 <input type="time" value="{{ old('check_out_time', isset($property) ? $property->check_out_time : '') }}" name="check_out_time" class="form-control mb-2">
                                 
                             </div>
+                            <div class="mb-5 fv-row">
+                                <label class="form-label">@lang('dashboard.rate_per_day')</label>
+                                <input type="number" step="4" value="{{ old('rate_per_day', isset($property) ? $property->rate_per_day : '') }}" name="rate_per_day" class="form-control mb-2">
+                                
+                            </div>
 
 
 

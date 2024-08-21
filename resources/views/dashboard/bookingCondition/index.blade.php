@@ -55,6 +55,8 @@
                                     <input class="form-check-input" id="checkedAll"  type="checkbox" data-kt-check="true" data-kt-check-target="#kt_ecommerce_category_table .form-check-input" value="1" />
                                 </div>
                             </th>
+                            <th class="min-w-250px">@lang('dashboard.icon')</th>
+
                             <th class="min-w-150px">@lang('dashboard.name')</th>
                             <th class="text-end min-w-70px">@lang('dashboard.actions')</th>
                         </tr>
@@ -77,7 +79,11 @@
                                 <td>
                                     <div class="d-flex">
                                         <!--begin::Thumbnail-->
-                                        
+                                        @if($bookingCondition->icon)
+                                        <a href="{{ route('booking-conditions.edit', $bookingCondition->id) }}" class="symbol symbol-50px">
+                                            <span class="symbol-label" style="background-image:url({{$bookingCondition->icon}});"></span>
+                                        </a>
+                                        @endcan 
                                         <!--end::Thumbnail-->
                                         <div class="ms-5">
                                             <!--begin::Title-->

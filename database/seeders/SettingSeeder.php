@@ -33,6 +33,8 @@ class SettingSeeder extends Seeder {
             ['key' => 'email', 'type' => 'text', 'value' => 'admin@gmail.com'],
             ['key' => 'phone', 'type' => 'text', 'value' => '1346546464'],
             ['key' => 'address', 'type' => 'text', 'value' => 'العنوان'],
+            ['key' => 'site_commission', 'type' => 'decimal', 'value' => '10'],
+
 
         ]);
     }

@@ -56,6 +56,7 @@ class PropertyController extends Controller
             'bookingConditions'=>'nullable|array',
             'check_in_time' => 'required|date_format:H:i', // Validate check-in time
             'check_out_time' => 'required|date_format:H:i|after:check_in_time', // Validate check-out time
+            'rate_per_day' =>'required|numeric|min:0',
         ]);
 
         $property = Property::create([
@@ -69,6 +70,8 @@ class PropertyController extends Controller
             'user_id' => $data['user_id'],
             'check_in_time'=>$data['check_in_time'],
             'check_out_time'=>$data['check_out_time'],
+            'rate_per_day'=>$data['rate_per_day'],
+
         ]);
 
         $property->primaryAmenities()->attach($data['primary_amenities']);
@@ -124,6 +127,7 @@ class PropertyController extends Controller
             'images' => 'nullable|array',
             'check_in_time' => 'required', // Validate check-in time
             'check_out_time' => 'required', // Validate check-out time
+            'rate_per_day'  =>'required|numeric|min:0'
 
 
         ]);
@@ -143,6 +147,10 @@ class PropertyController extends Controller
             'user_id' => $data['user_id'],
             'check_in_time'=>$data['check_in_time'],
             'check_out_time'=>$data['check_out_time'],
+            'rate_per_day'=>$data['rate_per_day'],
+
+            
+        
 
         ]);
 

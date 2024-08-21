@@ -41,7 +41,10 @@ class BookingConditionController extends Controller
             'name.en' => 'required|string|max:191|unique:booking_conditions,name->en',
             'desc.ar'         => 'nullable|string|max:191',
             'desc.en'         => 'nullable|string|max:191',
+            'icon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+
         ]);
+        
         
         BookingCondition::create($data);
         return response()->json();
@@ -72,8 +75,14 @@ class BookingConditionController extends Controller
             ],
             'desc.ar'         => 'nullable|string|max:191',
             'desc.en'         => 'nullable|string|max:191',
-        ]);
+            'icon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
 
+        ]);
+        
+
+        // if($request->has('icon')){
+        //     $data['icon'] = $request->file('icon')->store('BookingCondition');
+        // }
         $bookingCondition->update($data);
         return response()->json();
     }
