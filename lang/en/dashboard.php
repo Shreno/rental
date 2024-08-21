@@ -169,5 +169,7 @@ return [
     'banks'                    =>'Banks',
     'bank'                    =>'Bank',
     'check_in_time'           =>'check in time',
-    'check_out_time'          =>'check out time'
+    'check_out_time'          =>'check out time',
+    'bookings'                 =>'Bookings',
+    'booking'                 =>'Booking'
 ];

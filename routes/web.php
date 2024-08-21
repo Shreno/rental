@@ -692,7 +692,7 @@ Route::post('delete-all-clients', [
 /*------------ end Of clients ----------*/
 
 
-/*------------ start Of BookingCondition ----------*/
+/*------------ start Of bookingsCondition ----------*/
 Route::get('booking-conditions', [
     'uses'      => 'BookingConditionController@index',
     'as'        => 'booking-conditions.index',
@@ -741,7 +741,7 @@ Route::post('delete-all-booking-conditions', [
     'as'    => 'booking-conditions.deleteAll',
     'title' => ['actions.delete_all', 'dashboard.booking-conditions']
 ]);
-/*------------ end Of BookingCondition ----------*/
+/*------------ end Of bookingsCondition ----------*/
 /*------------ start Of Banks ----------*/
 Route::get('banks', [
     'uses'      => 'BankController@index',
@@ -792,6 +792,57 @@ Route::post('delete-all-banks', [
     'title' => ['actions.delete_all', 'dashboard.banks']
 ]);
 /*------------ end Of Banks ----------*/
+
+/*------------ start Of bookings ----------*/
+Route::get('bookings', [
+    'uses'      => 'BookingController@index',
+    'as'        => 'bookings.index',
+    'title'     => 'dashboard.bookings',
+    'type'      => 'parent',
+    'child'     => [ 'bookings.create','bookings.edit', 'bookings.destroy'  ,'bookings.deleteAll']
+]);
+
+# banks store
+Route::get('bookings/create', [
+    'uses'  => 'BookingController@create',
+    'as'    => 'bookings.create',
+    'title' => ['actions.add', 'dashboard.bookings']
+]);
+
+# banks store
+Route::post('bookings/store', [
+    'uses'  => 'BookingController@store',
+    'as'    => 'bookings.store',
+    'title' => ['actions.add', 'dashboard.bookings']
+]);
+
+# banks update
+Route::get('bookings/{id}/edit', [
+    'uses'  => 'BookingController@edit',
+    'as'    => 'bookings.edit',
+    'title' => ['actions.edit', 'dashboard.bookings']
+]);
+
+# banks update
+Route::put('bookings/{id}', [
+    'uses'  => 'BookingController@update',
+    'as'    => 'bookings.update',
+    'title' => ['actions.edit', 'dashboard.bookings']
+]);
+
+# banks delete
+Route::delete('bookings/{id}', [
+    'uses'  => 'BookingController@destroy',
+    'as'    => 'bookings.destroy',
+    'title' => ['actions.delete', 'dashboard.bookings']
+]);
+#banks all clients
+Route::post('delete-all-bookings', [
+    'uses'  => 'BookingController@deleteAll',
+    'as'    => 'bookings.deleteAll',
+    'title' => ['actions.delete_all', 'dashboard.bookings']
+]);
+/*------------ end Of bookings ----------*/
 
 
 

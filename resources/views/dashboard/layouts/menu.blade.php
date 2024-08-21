@@ -451,6 +451,53 @@
 </div>
 <!--end::Menu item-->
 @endcan 
+{{-- bookings --}}
+
+@can('bookings.index')
+<!--begin::Menu item-->
+<div class="menu-item menu-sub-indention menu-accordion  {{areActiveRoutes(['bookings.index' , 'bookings.create' , 'bookings.edit'])}}" data-kt-menu-trigger="click">
+    <!--begin::Menu link-->
+    <a href="#" class="menu-link py-3 {{areActiveRoutes(['bookings.index' , 'bookings.create' , 'bookings.edit'])}}">
+        <span class="menu-icon">
+            <img src="{{ asset('images/booking.png') }}" style="width:25px;height:25px">
+        </span>
+        <span class="menu-title">@lang('dashboard.bookings')</span>
+        <span class="menu-arrow"></span>
+    </a>
+    <!--end::Menu link-->
+
+    <!--begin::Menu sub-->
+    <div class="menu-sub menu-sub-accordion pt-3">
+        <!--begin::Menu item-->
+        <div class="menu-item">
+            <a href="{{ route('bookings.index') }}" class="menu-link py-3  {{ isActiveRoute('bookings.index') }}">
+                <span class="menu-bullet">
+                    <span class="bullet bullet-dot"></span>
+                </span>
+                <span class="menu-title">@lang('dashboard.all_title', ['page_title' => __('dashboard.bookings')])</span>
+            </a>
+        </div>
+        <!--end::Menu item-->
+
+        <!--begin::Menu item-->
+        <div class="menu-item">
+            <a href="{{route('bookings.create')}}" class="menu-link py-3 {{ isActiveRoute('bookings.create') }}">
+                <span class="menu-bullet">
+                    <span class="bullet bullet-dot"></span>
+                </span>
+                <span class="menu-title">@lang('dashboard.create_title', ['page_title' => __('dashboard.bookings')])</span>
+            </a>
+        </div>
+        <!--end::Menu item-->
+    </div>
+    <!--end::Menu sub-->
+</div>
+<!--end::Menu item-->
+@endcan
+
+
+
+{{-- bookings --}}
 
 
    

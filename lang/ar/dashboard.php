@@ -187,7 +187,9 @@ return [
     'banks'                  =>'البنوك',
     'bank'                  =>'بنك',
     'check_in_time'           =>'وقت الوصول',
-    'check_out_time'          =>'وقت المغادرة'
+    'check_out_time'          =>'وقت المغادرة',
+    'bookings'                =>'الحجوزات',
+    'booking'                 =>'حجز'
 
 
 
