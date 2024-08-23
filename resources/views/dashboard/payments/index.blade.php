@@ -1,4 +1,4 @@
-@section('pageTitle' , "المسؤولين")
+@section('pageTitle' , "المدفوعات")
 
 @extends('dashboard.layouts.app')
 @section('content')
@@ -32,16 +32,16 @@
                 <!--begin::Card toolbar-->
                 <div class="card-toolbar">
                     <!--begin::Add customer-->
-                    @can('bookings.create')
+                    {{-- @can('bookings.create')
                     <a href="{{ route('bookings.create')}}" class="btn btn-primary">@lang('dashboard.create_title', ['page_title' => __('dashboard.booking')])</a>
-                    @endcan 
+                    @endcan  --}}
                     <!--end::Add customer-->
-                    <span class="w-5px h-2px"></span>
+                    {{-- <span class="w-5px h-2px"></span>
                     @can('bookings.deleteAll')
                     <button type="button" data-route="{{route('bookings.deleteAll')}}" 
                     class="btn btn-danger delete_all_button">
                         <i class="feather icon-trash"></i>@lang('dashboard.delete_selected')</button>
-                    @endcan 
+                    @endcan  --}}
                 </div>
                 <!--end::Card toolbar-->
             </div>
@@ -64,7 +64,9 @@
                             <th class="min-w-250px"> المستاجر</th>
                           
                             <th class="min-w-250px">السعر</th>
-                            <th class="min-w-250px">حالةالدفع</th>
+                            <th class="min-w-250px">حالةالدفع 
+
+                            </th>
 
 
 
@@ -75,13 +77,13 @@
                     <!--end::Table head-->
                     <!--begin::Table body-->
                     <tbody class="fw-bold text-gray-600">
-                        @foreach ($bookings as $booking)
+                        @foreach ($Payments as $Payment)
                             <!--begin::Table row-->
-                            <tr data-id="{{$booking->id}}">
+                            <tr data-id="{{$Payment->id}}">
                                 <!--begin::Checkbox-->
                                 <td>
                                     <div class="form-check form-check-sm form-check-custom form-check-solid ">
-                                        <input class="form-check-input checkSingle" type="checkbox" value="1" id="{{$booking->id}}"/>
+                                        <input class="form-check-input checkSingle" type="checkbox" value="1" id="{{$Payment->id}}"/>
                                     </div>
                                 </td>
                                 <!--end::Checkbox-->
@@ -90,7 +92,7 @@
                                     <div class="d-flex">
                                         <div class="ms-5">
                                             <!--begin::Title-->
-                                            <a href="{{ route('bookings.edit', $booking->id) }}" class="text-gray-800 text-hover-primary fs-5 fw-bolder mb-1" data-kt-ecommerce-category-filter="category_name">{{$booking->property->title}}</a>
+                                            <a href="{{ route('payments.edit', $Payment->id) }}" class="text-gray-800 text-hover-primary fs-5 fw-bolder mb-1" data-kt-ecommerce-category-filter="category_name">{{$Payment->booking->property->title}}</a>
                                             <!--end::Title-->
                                         </div>
                                     </div>
@@ -98,18 +100,29 @@
                                 <td>
                                     <!--begin::Badges-->
                                     <div class="d-flex align-items-center">
-                                        {{$booking->client->name}}
+                                        {{$Payment->booking->client->name}}
                                     </div>
                                     <!--end::Badges-->
                                 </td>
                               
-                                <td>{{$booking->total_price}}</td>
-                                <td>{{$booking->payment->status}}</td>
+                                <td>{{$Payment->amount}}</td>
+                                <td>{{$Payment->status}}</td>
+                                @if($Payment->status=='pending')
+                                <td>
+                                    @can('bookings.edit')
+                                    <div class="menu-item px-3">
+                                        <a href="{{route('payments.edit', $Payment->id)}}" class="menu-link px-3">الدفع</a>
+                                    </div>
+                                    @endcan 
+                                </td>
+                                @endif
+
+
 
 
                               
                                 <!--begin::Action=-->
-                                <td class="text-end">
+                                {{-- <td class="text-end">
                                     <a href="#" class="btn btn-sm btn-light btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">أجرائات
                                     <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
                                     <span class="svg-icon svg-icon-5 m-0">
@@ -136,7 +149,7 @@
                                         <!--end::Menu item-->
                                     </div>
                                     <!--end::Menu-->
-                                </td>
+                                </td> --}}
                                 <!--end::Action=-->
                             </tr>
                             <!--end::Table row-->

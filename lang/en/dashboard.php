@@ -175,5 +175,9 @@ return [
     'rate_per_day'            =>'Rate per day',
     'site_commission'         =>'Site Commission',
     'start_date'              =>'start_date',
-    'end_date'                =>'end_date'
+    'end_date'                =>'end_date',
+    'payments'               =>'Payments',
+    'pay'                    =>'Pay',
+    'bank_accounts'          =>'Bank Accounts',
+    'bank_account'           =>'Bank Account'
 ];

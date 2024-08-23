@@ -844,6 +844,110 @@ Route::post('delete-all-bookings', [
 ]);
 /*------------ end Of bookings ----------*/
 
+/*------------ start Of payments ----------*/
+Route::get('payments', [
+    'uses'      => 'PaymentController@index',
+    'as'        => 'payments.index',
+    'title'     => 'dashboard.payments',
+    'type'      => 'parent',
+    'child'     => [ 'payments.create','payments.edit', 'payments.destroy'  ,'payments.deleteAll']
+]);
+
+# banks store
+Route::get('payments/create', [
+    'uses'  => 'PaymentController@create',
+    'as'    => 'payments.create',
+    'title' => ['actions.add', 'dashboard.payments']
+]);
+
+# banks store
+Route::post('payments/store', [
+    'uses'  => 'PaymentController@store',
+    'as'    => 'payments.store',
+    'title' => ['actions.add', 'dashboard.payments']
+]);
+
+# banks update
+Route::get('payments/{id}/edit', [
+    'uses'  => 'PaymentController@edit',
+    'as'    => 'payments.edit',
+    'title' => ['actions.edit', 'dashboard.payments']
+]);
+
+# banks update
+Route::put('payments/{id}', [
+    'uses'  => 'PaymentController@update',
+    'as'    => 'payments.update',
+    'title' => ['actions.edit', 'dashboard.payments']
+]);
+
+# banks delete
+Route::delete('payments/{id}', [
+    'uses'  => 'PaymentController@destroy',
+    'as'    => 'payments.destroy',
+    'title' => ['actions.delete', 'dashboard.payments']
+]);
+#banks all clients
+Route::post('delete-all-payments', [
+    'uses'  => 'PaymentController@deleteAll',
+    'as'    => 'payments.deleteAll',
+    'title' => ['actions.delete_all', 'dashboard.payments']
+]);
+/*------------ end Of payments ----------*/
+
+/*------------ start Of payments ----------*/
+# List all bank accounts
+Route::get('bank-accounts', [
+    'uses'      => 'BankAccountController@index',
+    'as'        => 'bank-accounts.index',
+    'title'     => 'dashboard.bank_accounts',
+    'type'      => 'parent',
+    'child'     => ['bank-accounts.create', 'bank-accounts.edit', 'bank-accounts.destroy', 'bank-accounts.deleteAll']
+]);
+
+# Create a bank account
+Route::get('bank-accounts/create', [
+    'uses'  => 'BankAccountController@create',
+    'as'    => 'bank-accounts.create',
+    'title' => ['actions.add', 'dashboard.bank_accounts']
+]);
+
+# Store a bank account
+Route::post('bank-accounts/store', [
+    'uses'  => 'BankAccountController@store',
+    'as'    => 'bank-accounts.store',
+    'title' => ['actions.add', 'dashboard.bank_accounts']
+]);
+
+# Edit a bank account
+Route::get('bank-accounts/{id}/edit', [
+    'uses'  => 'BankAccountController@edit',
+    'as'    => 'bank-accounts.edit',
+    'title' => ['actions.edit', 'dashboard.bank_accounts']
+]);
+
+# Update a bank account
+Route::put('bank-accounts/{id}', [
+    'uses'  => 'BankAccountController@update',
+    'as'    => 'bank-accounts.update',
+    'title' => ['actions.edit', 'dashboard.bank_accounts']
+]);
+
+# Delete a bank account
+Route::delete('bank-accounts/{id}', [
+    'uses'  => 'BankAccountController@destroy',
+    'as'    => 'bank-accounts.destroy',
+    'title' => ['actions.delete', 'dashboard.bank_accounts']
+]);
+
+# Delete all bank accounts
+Route::post('delete-all-bank-accounts', [
+    'uses'  => 'BankAccountController@deleteAll',
+    'as'    => 'bank-accounts.deleteAll',
+    'title' => ['actions.delete_all', 'dashboard.bank_accounts']
+]);
+/*------------ end Of payments ----------*/
+
 
 
 

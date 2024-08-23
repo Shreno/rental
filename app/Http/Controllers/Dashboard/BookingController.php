@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 
 use App\Models\User;
 use App\Models\Booking;
+use App\Models\Payment;
 use App\Models\Setting;
 use Carbon\Carbon;
 
@@ -54,7 +55,7 @@ class BookingController extends Controller
     ]);
     $property = Property::find($request->property_id);
     $client = User::find($request->client_id);
-    $owner = $property->owner;
+    $owner = $property->user_id;
 
     $startDate = Carbon::parse($request->start_date);
     $endDate = Carbon::parse($request->end_date);
@@ -78,28 +79,27 @@ class BookingController extends Controller
     // Calculate total price
     $duration = $startDate->diffInDays($endDate);
     $totalPrice = $property->rate_per_day * $duration;
-    // start from here tomorow:):):)
-    // $commission_percentage=Setting::where('key','')
+    $commission_percentage=Setting::where('key','site_commission')->first();
 
     // Create Booking
     $booking = Booking::create([
         'property_id' => $property->id,
         'client_id' => $client->id,
-        'owner_id' => $owner->id,
+        'owner_id' => $owner,
         'start_date' => $startDate,
         'end_date' => $endDate,
         'total_price' => $totalPrice,
     ]);
 
     // Calculate payment amounts
-    $siteCommission = $totalPrice * ($request->commission_percentage / 100);
+    $siteCommission = $totalPrice * ($commission_percentage->value / 100);
     $ownerAmount = $totalPrice - $siteCommission;
 
     // Create Payment
     Payment::create([
         'booking_id' => $booking->id,
         'paid_by' => $client->id,
-        'owner_id' => $owner->id,
+        'owner_id' => $owner,
         'amount' => $totalPrice,
         'site_commission' => $siteCommission,
         'owner_amount' => $ownerAmount,

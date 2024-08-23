@@ -193,7 +193,11 @@ return [
     'rate_per_day'            =>'سعر الحجز لليوم',
     'site_commission'         =>'نسبة الموقع',
     'start_date'              =>'تاريخ بداية الحجز',
-    'end_date'                =>'تاريخ نهاية الحجز'
+    'end_date'                =>'تاريخ نهاية الحجز',
+    'payments'                =>'المدفوعات',
+    'pay'                     =>'دفع',
+    'bank_accounts'          =>'حسابات بنكية',
+    'bank_account'           =>'حساب بنكى'
 
 
 

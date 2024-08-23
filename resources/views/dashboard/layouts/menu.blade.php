@@ -409,6 +409,47 @@
 
 
 {{--  --}}
+@can('bank-accounts.index')
+<!--begin::Menu item-->
+<div class="menu-item menu-sub-indention menu-accordion  {{areActiveRoutes(['bank-accounts.index' , 'bank-accounts.create' , 'bank-accounts.edit'])}}" data-kt-menu-trigger="click">
+    <!--begin::Menu link-->
+    <a href="#" class="menu-link py-3 {{areActiveRoutes(['bank-accounts.index' , 'bank-accounts.create' , 'bank-accounts.edit'])}}">
+        <span class="menu-icon">
+            <img src="{{ asset('images/accounting.png') }}" style="width:25px;height:25px">
+        </span>
+        <span class="menu-title">@lang('dashboard.bank_accounts')</span>
+        <span class="menu-arrow"></span>
+    </a>
+    <!--end::Menu link-->
+
+    <!--begin::Menu sub-->
+    <div class="menu-sub menu-sub-accordion pt-3">
+        <!--begin::Menu item-->
+        <div class="menu-item">
+            <a href="{{ route('bank-accounts.index') }}" class="menu-link py-3 {{ isActiveRoute('bank-accounts.index') }}">
+                <span class="menu-bullet">
+                    <span class="bullet bullet-dot"></span>
+                </span>
+                <span class="menu-title">@lang('dashboard.all_title', ['page_title' => __('dashboard.bank_accounts')])</span>
+            </a>
+        </div>
+        <!--end::Menu item-->
+
+        <!--begin::Menu item-->
+        <div class="menu-item">
+            <a href="{{ route('bank-accounts.create') }}" class="menu-link py-3 {{ isActiveRoute('bank-accounts.create') }}">
+                <span class="menu-bullet">
+                    <span class="bullet bullet-dot"></span>
+                </span>
+                <span class="menu-title">@lang('dashboard.create_title', ['page_title' => __('dashboard.bank_accounts')])</span>
+            </a>
+        </div>
+        <!--end::Menu item-->
+    </div>
+    <!--end::Menu sub-->
+</div>
+<!--end::Menu item-->
+@endcan
 
 @can('properties.index')
 <!--begin::Menu item-->
@@ -494,6 +535,40 @@
 </div>
 <!--end::Menu item-->
 @endcan
+
+{{-- payments --}}
+@can('payments.index')
+<!--begin::Menu item-->
+<div class="menu-item menu-sub-indention menu-accordion  {{areActiveRoutes(['payments.index' , 'payments.create' , 'payments.edit'])}}" data-kt-menu-trigger="click">
+    <!--begin::Menu link-->
+    <a href="#" class="menu-link py-3 {{areActiveRoutes(['payments.index' , 'payments.create' , 'payments.edit'])}}">
+        <span class="menu-icon">
+            <img src="{{ asset('images/payment-method.png') }}" style="width:25px;height:25px">
+        </span>
+        <span class="menu-title">@lang('dashboard.payments')</span>
+        <span class="menu-arrow"></span>
+    </a>
+    <!--end::Menu link-->
+
+    <!--begin::Menu sub-->
+    <div class="menu-sub menu-sub-accordion pt-3">
+        <!--begin::Menu item-->
+        <div class="menu-item">
+            <a href="{{ route('payments.index') }}" class="menu-link py-3  {{ isActiveRoute('payments.index') }}">
+                <span class="menu-bullet">
+                    <span class="bullet bullet-dot"></span>
+                </span>
+                <span class="menu-title">@lang('dashboard.all_title', ['page_title' => __('dashboard.payments')])</span>
+            </a>
+        </div>
+
+  
+    </div>
+    <!--end::Menu sub-->
+</div>
+<!--end::Menu item-->
+@endcan
+
 
 
 
