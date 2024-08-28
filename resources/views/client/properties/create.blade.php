@@ -283,7 +283,7 @@ textarea, input[type=text], input[type=password], input[type=datetime], input[ty
                                 </div> 
                                 <div class="wg-box2 select-group">
                                     <label class="title-user fw-5">@lang('dashboard.enter')  @lang('dashboard.rate_per_day')</label>
-                                    <input type="number" required step="4" value="{{ old('rate_per_day', isset($property) ? $property->rate_per_day : '') }}" name="rate_per_day" class="form-control mb-2">
+                                    <input type="number" required step="1" value="{{ old('rate_per_day', isset($property) ? $property->rate_per_day : '') }}" name="rate_per_day" class="form-control mb-2">
                                     @error('rate_per_day')
                                     <span class="invalid-feedback text-danger" role="alert">
                                         <strong>{{ $message }}</strong>

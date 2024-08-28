@@ -176,7 +176,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const subAmenityId = parseInt(input.name.match(/\d+/)[0], 10);
             selectedSubAmenities[subAmenityId] = parseInt(input.value, 10);
             subAmenitiesInput.value = JSON.stringify(selectedSubAmenities);
-            validateImageUpload();
+            // validateImageUpload();
         }
     
         function validateImageUpload() {
