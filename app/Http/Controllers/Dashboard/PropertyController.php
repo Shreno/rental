@@ -17,10 +17,19 @@ class PropertyController extends Controller
 {
     public function index()
     {
-        $properties = Property::paginate(50);
+        $properties = Property::orderBy('id','desc')->paginate(50);
 
         return view('dashboard.properties.index', compact('properties'));
     }
+
+    public function active ($property)
+    {
+        $property = Property::findOrFail($property);
+        $property->update(['is_active'=>1]);
+
+        return redirect()->route('properties.index');
+    }
+
 
     public function create()
     {

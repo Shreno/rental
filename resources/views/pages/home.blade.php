@@ -720,7 +720,8 @@
                             <div class="title-login fs-30 fw-7 lh-45">Login</div>
                             <div class="comments">
                                 <div class="respond-comment">
-                                    <form method="post" class="comment-form form-submit" action="#" accept-charset="utf-8">
+                                    <form method="post" class="comment-form form-submit" action="{{route('login')}}" accept-charset="utf-8">
+                                        @csrf
                                         <fieldset class="">
                                             <label class="fw-6">Account</label>
                                             <input type="email" id="email" class="tb-my-input" name="email" placeholder="Email or user name" >
@@ -728,7 +729,7 @@
                                         </fieldset>   
                                         <fieldset class="style-wrap">
                                             <label class="fw-6">Password</label>
-                                            <input type="password" class="input-form password-input" placeholder="Your password" >
+                                            <input type="password" name="password" class="input-form password-input" placeholder="Your password" >
                                             <img class="img-icon" src="{{ asset('assets/images/icon/icon-password.svg') }}" alt="images">
                                         </fieldset> 
                                         <div class="title-forgot"><a class="fs-13" >Forgot password</a> </div>                                    

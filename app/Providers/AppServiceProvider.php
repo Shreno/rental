@@ -12,6 +12,13 @@ use Illuminate\Support\ServiceProvider;
 use App\Observers\InitialPageObserver;
 use App\Observers\UserObserver;
 use Illuminate\Pagination\Paginator;
+use App\Models\Notification;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
+
+
+
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -49,6 +56,19 @@ class AppServiceProvider extends ServiceProvider
             else
                 return 'ar';
 
+        });
+        // Share notificationsBar with all views
+        View::composer('*', function ($view) {
+            if (Auth::check()) {
+                $user = Auth::user();
+                $notificationsBar = Notification::where('notifiable_id', $user->id)
+                    ->Unread()
+                    ->latest()
+                    ->get();
+                
+                // Share the notifications with the view
+                $view->with('notificationsBar', $notificationsBar);
+            }
         });
 
     }

@@ -59,8 +59,8 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
             
-            if ($user->account_type === 'user') {
-                return redirect()->route('welcome'); // redirect to the 'welcome' route
+            if ($user->user_type ===2) {
+                return redirect()->route('client.dashboard'); // redirect to the 'welcome' route
             }else{
                 return redirect()->route('home');
             }

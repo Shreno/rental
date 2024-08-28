@@ -16,6 +16,7 @@ return [
     'arabic_data'             => 'البيانات باللغة العربية',
     'english_data'            => 'البيانات باللغة الانجليزية',
     'neighborhoods' => 'الاحياء',
+    'neighborhood'=>'الحى',
     'back_to_home'            => 'العودة للرئيسية',
     'status_title'            => 'حالة :page_title',
     'status_desc'             => 'قم يتحديد حالة :page_title',
@@ -197,7 +198,25 @@ return [
     'payments'                =>'المدفوعات',
     'pay'                     =>'دفع',
     'bank_accounts'          =>'حسابات بنكية',
-    'bank_account'           =>'حساب بنكى'
+    'bank_account'           =>'حساب بنكى',
+    'On Waiting'             =>'قيد الإنتظار ',
+    'Accepted'                        =>'موافقة',
+    'property address'=>"عنوان العقار",
+    'Location on map'=>'الموقع على الخريطة',
+    'enter'   =>'أدخل',
+    'Confirm the property address' =>'تأكيد عنوان العقار',
+    'select'=>'أختار',
+    'direction'        =>'الإتجاه',
+    "Please select at least one"=>"من فضلك أختر على الأقل واحد",
+    "Information about the property"=>"معلومات عن العقار",
+    "property description"=>"وصف العقار",
+    "optional"=>"إختيارى",
+    'ar' =>'اللغة العربية',
+    'en' =>'اللغة الإنجليزية',
+    "A distinctive description of your property"=>"أكتب وصف مميز لإعلانك",
+    "title"=>"عنوان",
+    "Example: self-entry"=>"مثـال : دخول ذاتى"
+
 
 
 

@@ -64,6 +64,8 @@
                             <th class="">الاتجاة</th>
                             <th class="">العميل</th>
                             <th class="">صورة</th>
+                            <th class="">الحالة</th>
+
                             <th class="text-end min-w-70px">@lang('dashboard.actions')</th>
                         </tr>
                         <!--end::Table row-->
@@ -117,6 +119,17 @@
                                 <td>
                                     @if($property->images->first())
                                         <img src="{{ asset($property->images->first()->image) }}"  style="width:60px;height:60px;border-radius:10px" alt="">
+                                    @endif 
+                                </td>
+                                <td>
+                                    @if($property->is_active==1)
+                                    تمت الموافقة
+                                    @else
+                                    @can('properties.edit')
+                                    <div class="menu-item px-3">
+                                        <a href="{{route('properties.active', $property->id)}}" class="menu-link px-3">الموافقة</a>
+                                    </div>
+                                    @endcan                                 
                                     @endif 
                                 </td>
                                 <!--begin::Actions=-->

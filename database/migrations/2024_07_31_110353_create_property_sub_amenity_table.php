@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('property_id')->constrained()->onDelete('cascade');
             $table->foreignId('sub_amenity_id')->constrained()->onDelete('cascade');
+
             $table->timestamps();
         });
     }

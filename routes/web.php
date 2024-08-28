@@ -393,6 +393,12 @@ Route::put('properties/{id}', [
     'as'    => 'properties.update',
     'title' => ['actions.edit', 'dashboard.category']
 ]);
+Route::get('properties/active/{id}', [
+    'uses'  => 'PropertyController@active',
+    'as'    => 'properties.active',
+    'title' => ['actions.edit', 'dashboard.category']
+]);
+
 
 # properties delete
 Route::delete('properties/{id}', [
@@ -996,6 +1002,19 @@ Route::get('update-routes', function (){
     $role->givePermissionTo(Permission::all());
     $admin->assignRole('super-admin');
 
+});
+
+
+
+Route::group(['middleware' => ['auth',  'admin-lang' , 'client' ] , 'prefix' => 'client'], function () {
+
+   
+    Route::get('/home', 'App\Http\Controllers\Client\HomeController@index')->name('client.dashboard');
+    Route::get('/set-lang/{lang}', 'App\Http\Controllers\Client\HomeController@SetLanguage');
+    Route::resource('/client-properties', 'App\Http\Controllers\Client\PropertyController');
+
+
+   
 });
 
 

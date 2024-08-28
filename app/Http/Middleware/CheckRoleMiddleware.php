@@ -21,6 +21,11 @@ class CheckRoleMiddleware {
           auth()->logout();
           return redirect(route('show.login'));
         }
+        if(auth()->user()->user_type==2)
+        {
+          return redirect()->route('client.dashboard'); // redirect to the 'welcome' route
+
+        }
     //    dd(auth()->user()->roles()->first());
 
          $permissions = auth()->user()->roles()->first()->permissions()->pluck('name');
