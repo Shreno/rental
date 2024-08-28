@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
-            $table->string('map')->nullable();
+            $table->text('map')->nullable();
             $table->string('address');
             $table->foreignId('city_id')->constrained()->onDelete('cascade');
             $table->foreignId('neighborhood_id')->constrained()->onDelete('cascade');

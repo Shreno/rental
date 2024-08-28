@@ -47,7 +47,7 @@ class PropertyController extends Controller
             'title.en' => 'required|string|max:191',
             'description.ar' => 'nullable|string',
             'description.en' => 'nullable|string',
-            'map' => 'nullable|string',
+            'map' => 'nullable|string|max:255',
             'address' => 'required|string|max:255',
             'city_id' => 'required|exists:cities,id',
             'neighborhood_id' => 'required|exists:neighborhoods,id',
