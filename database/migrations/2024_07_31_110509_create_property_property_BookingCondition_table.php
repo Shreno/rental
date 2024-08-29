@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('property_BookingCondition', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('property_id')->constrained()->onDelete('cascade');
-            $table->foreignId('booking_condition_id')->constrained()->onDelete('cascade');
+            $table->foreignId('property_id')->references('id')->on('properties')->onDelete('cascade');
+            $table->foreignId('booking_condition_id')->references('id')->on('booking_conditions')->onDelete('cascade');
             $table->timestamps();
         });
     }

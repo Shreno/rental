@@ -18,6 +18,9 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->string('image')->nullable();
             $table->text('desc')->nullable();
+            $table->integer('is_active')->default(1);
+
+            
             $table->timestamps();
         });
     }
