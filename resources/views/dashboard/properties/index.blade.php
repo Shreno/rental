@@ -73,7 +73,7 @@
                     <!--end::Table head-->
                     <!--begin::Table body-->
                     <tbody class="fw-bold text-gray-600">
-                        @foreach ($properties as $property)
+                        @foreach ($properties as $i=>$property)
                             <!--begin::Table row-->
                             <tr data-id="{{$property->id}}">
                                 <!--begin::Checkbox-->
@@ -88,7 +88,7 @@
                                     <div class="d-flex">
                                         <div class="ms-5">
                                             <!--begin::Title-->
-                                            <a href="{{ route('properties.edit', $property->id) }}" class="text-gray-800 text-hover-primary fs-5 fw-bolder mb-1" data-kt-ecommerce-category-filter="category_name">{{$property->title}}</a>
+                                            <a href="{{ route('properties.show', $property->id) }}" class="text-gray-800 text-hover-primary fs-5 fw-bolder mb-1" data-kt-ecommerce-category-filter="category_name">{{$property->title}}</a>
                                             <!--end::Title-->
                                             <!--begin::Description-->
                                             <div class="text-muted fs-7 fw-bolder">{{$property->description}}</div>
@@ -124,11 +124,19 @@
                                 <td>
                                     @if($property->is_active==1)
                                     تمت الموافقة
+                                    @elseif($property->is_active==2)
+                                    تم الرفض
                                     @else
-                                    @can('properties.edit')
-                                    <div class="menu-item px-3">
+                                    @can('properties.edit')  
+                                    <button type="button" class="btn btn-info pull-center" data-toggle="modal"
+                                    data-target="#status{{$i}}">
+                                    <i class="fa fa-link"></i>
+                                    اجراء
+                                   </button>
+
+                                    {{-- <div class="menu-item px-3">
                                         <a href="{{route('properties.active', $property->id)}}" class="menu-link px-3">الموافقة</a>
-                                    </div>
+                                    </div> --}}
                                     @endcan                                 
                                     @endif 
                                 </td>
@@ -166,6 +174,12 @@
                                 
                             </tr>
                             <!--end::Table row-->
+                            {{--  --}}
+                            @include('dashboard.properties.model')
+
+
+
+                            {{--  --}}
                         @endforeach
                     </tbody>
                     <!--end::Table body-->

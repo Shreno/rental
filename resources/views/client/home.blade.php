@@ -192,10 +192,17 @@
                                             <div class="button-status fs-12 fw-6 lh-18"> موافقة</div>
                                         </div>
                                             
-                                        @else  
+                                        @elseif($property->is_active==0) 
                                         <div class="status-wrap">
                                             <div class="button-status fs-12 fw-6 lh-18 style-1">@lang('dashboard.On Waiting')</div>
                                         </div>
+                                        @elseif($property->is_active==2) 
+                                        <div class="status-wrap">
+
+                                        <div class="button-status fs-12 fw-6 lh-18 style-2">@lang('dashboard.refused')</div>
+                                    </div>
+
+
                                             
                                         @endif
 
@@ -203,8 +210,40 @@
                                         <td>
                                             <div class="icon-wrap">
                                                 <ul class="">
-                                                <li class=""><a class="fw-6" href="{{route('client-properties.edit',$property->id)}}"><i class="far fa-pen"></i>تعديل</a></li>
-                                                <li class="" ><a class="remove-file fw-6" href="{{route('client-properties.destroy',$property->id)}}"><i class="fal fa-trash-alt"></i>حذف</a></li>
+                                                <li class="">
+                                                <a class="fw-6" href="{{route('client-properties.edit',$property->id)}}"><i class="far fa-pen"></i>تعديل</a>
+                                                </li>
+                                                <li class="" >
+
+                                               @if($property->is_active==1)
+                                               @if($property->publish==1)
+
+ 
+                                               <a href="#" class="fw-6" onclick="event.preventDefault(); if(confirm('Are you sure you want to unpublish this property?')) { document.getElementById('delete-form-{{ $property->id }}').submit(); }">
+                                                <i class="fal fa-trash-alt"></i> عدم النشر
+                                               </a>
+
+                                               @else
+                                               <a href="#" class="fw-6" onclick="event.preventDefault(); if(confirm('Are you sure you want to publish this property?')) { document.getElementById('delete-form-{{ $property->id }}').submit(); }">
+                                                <i class="fal fa-trash-alt"></i> النشر
+                                               </a>
+                                               @endif
+                                                </li>
+
+
+                                               @else
+                                                <li class="" >
+                                                    <a href="#" class="fw-6" onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this property?')) { document.getElementById('delete-form-{{ $property->id }}').submit(); }">
+                                                        <i class="fal fa-trash-alt"></i> حذف
+                                                    </a>
+                                                    
+                                                  
+                                                </li>
+                                                @endif
+                                                <form id="delete-form-{{ $property->id }}" action="{{ route('client-properties.destroy', $property->id) }}" method="POST" style="display: none;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                </form>
                                                 </ul>
                                             </div>
                                         </td>
@@ -217,19 +256,8 @@
                                 </table>
                                 
                                 </div>
-                                <div class="themesflat-pagination clearfix">
-                                    <ul>
-                                        <!-- <li><a href="#" class="page-numbers style"><i class="far fa-angle-left"></i></a></li> -->
-                                        <li><a href="#" class="page-numbers style"><i class="far fa-angle-right"></i></a></li>
-                                        <li><a href="#" class="page-numbers">1</a></li>
-                                        <li><a href="#" class="page-numbers">2</a></li>
-                                        <li><a href="#" class="page-numbers current">3</a></li>
-                                        <li><a href="#" class="page-numbers">4</a></li>
-                                        <li><a href="#" class="page-numbers">...</a></li>
-                                        <li><a href="#" class="page-numbers style"><i class="far fa-angle-left"></i></a></li>
-                                        <!-- <li><a href="#" class="page-numbers style"><i class="far fa-angle-right"></i></a></li> -->
-                                    </ul>
-                                </div>
+                                {{ $properties->links('vendor.pagination.default') }}
+
                             </div>
                         </div>
                         <div class="charts bg-white">

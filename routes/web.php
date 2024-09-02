@@ -380,12 +380,20 @@ Route::post('properties/store', [
     'title' => ['actions.add', 'dashboard.category']
 ]);
 
+//show
+Route::get('properties/{id}/show', [
+    'uses'  => 'PropertyController@show',
+    'as'    => 'properties.show',
+    'title' => ['actions.show', 'dashboard.category']
+]);
+
 # properties update
 Route::get('properties/{id}/edit', [
     'uses'  => 'PropertyController@edit',
     'as'    => 'properties.edit',
     'title' => ['actions.edit', 'dashboard.category']
 ]);
+
 
 # properties update
 Route::put('properties/{id}', [
@@ -1012,6 +1020,8 @@ Route::group(['middleware' => ['auth',  'admin-lang' , 'client' ] , 'prefix' => 
     Route::get('/home', 'App\Http\Controllers\Client\HomeController@index')->name('client.dashboard');
     Route::get('/set-lang/{lang}', 'App\Http\Controllers\Client\HomeController@SetLanguage');
     Route::resource('/client-properties', 'App\Http\Controllers\Client\PropertyController');
+    Route::delete('/delete-image/{id}', 'App\Http\Controllers\Client\PropertyController@delete_image')->name('image.destroy');
+
 
 
    

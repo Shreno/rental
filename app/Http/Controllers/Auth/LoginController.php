@@ -61,12 +61,13 @@ class LoginController extends Controller
             
             if ($user->user_type ===2) {
                 return redirect()->route('client.dashboard'); // redirect to the 'welcome' route
-            }else{
+            }
+            else{
                 return redirect()->route('home');
             }
         }
 
-        return redirect()->route('login')
+        return redirect()->back()
             ->with('error', 'البيانات غير موجودة'); // Redirect back with an error message
     }
 

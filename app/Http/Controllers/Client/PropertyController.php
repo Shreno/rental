@@ -14,6 +14,9 @@ use App\Models\PropertyFeature;
 use Illuminate\Http\Request;
 use App\Models\Property_Sub_Amenity;
 use App\Helpers\Notifications;
+use App\Models\PropertyImage;
+use Illuminate\Support\Facades\Storage;
+
 
 class PropertyController extends Controller
 {
@@ -124,7 +127,7 @@ class PropertyController extends Controller
         $bookingConditions=BookingCondition::all();
 
 
-        return view('dashboard.properties.create', compact('bookingConditions','property', 'cities', 'neighborhoods', 'users', 'primaryAmenities', 'subAmenities', 'propertyFeatures'));
+        return view('client.properties.edit', compact('bookingConditions','property', 'cities', 'neighborhoods', 'users', 'primaryAmenities', 'subAmenities', 'propertyFeatures'));
     }
 
     public function update(Request $request,  $property)
@@ -133,18 +136,17 @@ class PropertyController extends Controller
         $data = $request->validate([
             'title.ar' => 'required|string|max:191',
             'title.en' => 'required|string|max:191',
-            'description.ar' => 'required|string',
-            'description.en' => 'required|string',
+            'description.ar' => 'nullable|string',
+            'description.en' => 'nullable|string',
             'map' => 'nullable|string',
             'address' => 'required|string|max:255',
             'city_id' => 'required|exists:cities,id',
             'neighborhood_id' => 'required|exists:neighborhoods,id',
             'direction' => 'required|in:north,south,east,west',
-            'user_id' => 'required|exists:users,id',
-            'primary_amenities' => 'required|array',
-            'sub_amenities' => 'required|array',
-            'property_features' => 'required|array',
-            'bookingConditions'=>'nullable|array',
+            'primary_amenities' => 'required',
+            // 'sub_amenities' => 'required|array',
+            'property_features' => 'required',
+            'bookingConditions'=>'nullable',
             'images' => 'nullable|array',
             'check_in_time' => 'required', // Validate check-in time
             'check_out_time' => 'required', // Validate check-out time
@@ -165,36 +167,77 @@ class PropertyController extends Controller
             'city_id' => $data['city_id'],
             'neighborhood_id' => $data['neighborhood_id'],
             'direction' => $data['direction'],
-            'user_id' => $data['user_id'],
             'check_in_time'=>$data['check_in_time'],
             'check_out_time'=>$data['check_out_time'],
             'rate_per_day'=>$data['rate_per_day'],
+            'is_active'=>0
 
             
         
 
         ]);
 
-        $property->primaryAmenities()->sync($data['primary_amenities']);
-        $property->subAmenities()->sync($data['sub_amenities']);
-        $property->propertyFeatures()->sync($data['property_features']);
+        dd($data['primary_amenities']);
+
+        // $property->primaryAmenities()->sync($data['primary_amenities']);
+        // $property->subAmenities()->sync($data['sub_amenities']);
+
+        $propertyFeatures = explode(',', $request->property_features);
+        $property->propertyFeatures()->sync($propertyFeatures);
 
         if($request->bookingConditions!==null)
         {
-            $property->propertyBookingConditions()->attach($data['bookingConditions']);
+            $bookingConditions = explode(',', $request->bookingConditions);
+
+            $property->propertyBookingConditions()->sync($bookingConditions);
 
         }
 
-        if (isset($data['images'])) {
-            $property->images()->delete();
-            foreach ($data['images'] as $image) {
-                $property->images()->create(['image' => $image]);
-            }
-        }
+        // if (isset($data['images'])) {
+        //     $property->images()->delete();
+        //     foreach ($data['images'] as $image) {
+        //         $property->images()->create(['image' => $image]);
+        //     }
+        // }
 
         return back();
     }
     public function show ($id){
 
+    }
+    public function destroy($property){
+        $property = Property::findOrFail($property);
+        if($property->is_active==1)
+        {
+            if($property->publish==1)
+            {            $property->update(['publish'=>0]);
+
+
+            }else{
+                $property->update(['publish'=>1]);
+
+            }
+
+
+        }else{
+            $property->delete();
+        }
+        return back();
+  
+
+    }
+    public function delete_image($id){
+        $image = PropertyImage::find($id);
+        if ($image) {
+            // Remove the image file from storage
+            Storage::delete($image->image);
+    
+            // Delete the image record from the database
+            $image->delete();
+    
+            return response()->json(['success' => true]);
+        }
+    
+        return response()->json(['success' => false, 'error' => 'Image not found'], 404);
     }
 }

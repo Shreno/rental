@@ -86,72 +86,102 @@ textarea, input[type=text], input[type=password], input[type=datetime], input[ty
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
-                        <div class="info-box info-wg">
-                            <div class="inner-2 form-wg flex ">
-                                <div class="wg-box2 select-group">
-                                    <label class="title-user fw-6">@lang('dashboard.city')</label>
-                                    <div class="nice-select city" tabindex="0"><span class="current">@lang('dashboard.city')</span>
-                                        <ul class="list"> 
-                                            <li data-value class="option selected">@lang('dashboard.select') @lang('dashboard.city')</li>
-                                            @foreach ($cities as $city)
-                                            <li data-value="{{$city->id}}" class=" option {{ old('city_id', isset($property) && $property->city_id == $city->id ? 'selected' : '') }}">{{$city->name}}</li>                                                           
-                                            @endforeach
-                                           
-                                        </ul>
-                                    </div>
-                                    <input type="hidden" id="city-id" required name="city_id">
-                                    <div id="cityError" style="color: red; display: none;">@lang('dashboard.Please select') @lang('dashboard.city') .</div>
-                                    @error('city_id')
+                    <div class="info-box info-wg">
+                        <div class="inner-2 form-wg flex">
+                            <!-- City Selection -->
+                            <div class="wg-box2 select-group">
+                                <label class="title-user fw-6">@lang('dashboard.city')</label>
+                                <div class="nice-select city" tabindex="0">
+                                    <span class="current">
+                                        {{ isset($property) && $property->city ? $property->city->name : __('dashboard.select') . ' ' . __('dashboard.city') }}
+                                    </span>
+                                    <ul class="list">
+                                        <li data-value class="option selected">
+                                            @lang('dashboard.select') @lang('dashboard.city')
+                                        </li>
+                                        @foreach ($cities as $city)
+                                            <li data-value="{{ $city->id }}" class="option {{ old('city_id', isset($property) && $property->city_id == $city->id ? 'selected' : '') }}">
+                                                {{ $city->name }}
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                                <input type="hidden" id="city-id" required name="city_id" value="{{ old('city_id', isset($property) ? $property->city_id : '') }}">
+                                <div id="cityError" style="color: red; display: none;">
+                                    @lang('dashboard.Please select') @lang('dashboard.city').
+                                </div>
+                                @error('city_id')
                                     <span class="invalid-feedback text-danger" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-
-                                </div> 
-                                <div class="wg-box2 select-group">
-                                    <label class="title-user fw-6">@lang('dashboard.neighborhood')</label>
-                                    <div class="nice-select neighborhood" tabindex="0"><span class="current">@lang('dashboard.select') @lang('dashboard.neighborhood')</span>
-                                        <ul class="list"> 
-                                            <li data-value class="option selected">@lang('dashboard.select') @lang('dashboard.neighborhood')</li>
-                                            @foreach($neighborhoods as $neighborhood)
-
-                                            <li data-value="{{$neighborhood->id}}" class="option {{ old('neighborhood_id',  isset($property) && $property->neighborhood == $neighborhood->id ? 'selected' : '') }}">{{$neighborhood->name}}</li>      
-                                            @endforeach                                                     
-                                          
-                                        </ul>
-                                    </div>
-                                    <input type="hidden" id="neighborhood-id" name="neighborhood_id">
-                                    <div id="neighborhoodError" style="color: red; display: none;">@lang('dashboard.Please select') @lang('dashboard.neighborhood') .</div>
-                                    @error('neighborhood_id')
+                            </div>
+                    
+                            <!-- Neighborhood Selection -->
+                            <div class="wg-box2 select-group">
+                                <label class="title-user fw-6">@lang('dashboard.neighborhood')</label>
+                                <div class="nice-select neighborhood" tabindex="0">
+                                    <span class="current">
+                                        {{ isset($property) && $property->neighborhood ? $property->neighborhood->name : __('dashboard.select') . ' ' . __('dashboard.neighborhood') }}
+                                    </span>
+                                    <ul class="list">
+                                        <li data-value="" class="option @if(!isset($property->neighborhood_id)) selected @endif">
+                                            @lang('dashboard.select') @lang('dashboard.neighborhood')
+                                        </li>
+                                        @foreach($neighborhoods as $neighborhood)
+                                            <li data-value="{{ $neighborhood->id }}" class="option {{ old('neighborhood_id', isset($property) && $property->neighborhood_id == $neighborhood->id ? 'selected' : '') }}">
+                                                {{ $neighborhood->name }}
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                                <input type="hidden" id="neighborhood-id" name="neighborhood_id" value="{{ old('neighborhood_id', isset($property) ? $property->neighborhood_id : '') }}">
+                                <div id="neighborhoodError" style="color: red; display: none;">
+                                    @lang('dashboard.Please select') @lang('dashboard.neighborhood').
+                                </div>
+                                @error('neighborhood_id')
                                     <span class="invalid-feedback text-danger" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                                </div> 
-                                <div class="wg-box2 select-group">
-                                    <label class="title-user fw-6">@lang('dashboard.direction')</label>
-
-                                    <div class="nice-select direction" tabindex="0"><span class="current">@lang('dashboard.select') @lang('dashboard.direction') </span>
-                                        <ul class="list"> 
-                                            <li data-value class="option selected">@lang('dashboard.select') @lang('dashboard.direction')</li>
-                                            <li data-value="north"  class="option {{ old('direction', isset($property) && $property->direction == 'north' ? 'selected' : '') }}">@lang('dashboard.north')</li>
-                                            <li data-value="south" class="option {{ old('direction', isset($property) && $property->direction == 'south' ? 'selected' : '') }}">@lang('dashboard.south')</li>
-                                            <li data-value="east" class="option {{ old('direction', isset($property) && $property->direction == 'east' ? 'selected' : '') }}">@lang('dashboard.east')</li>
-                                            <li data-value="west" class="option {{ old('direction', isset($property) && $property->direction == 'west' ? 'selected' : '') }}">@lang('dashboard.west')</li>
-
-                                         
-                                        </ul>
-                                    </div>
-                                    <input type="hidden" name="direction" id="direction-id">
-                                    <div id="directionError" style="color: red; display: none;">@lang('dashboard.Please select at least one') @lang('dashboard.direction') .</div>
-                                    @error('direction')
+                            </div>
+                            <!-- Direction Selection -->
+                            <div class="wg-box2 select-group">
+                                <label class="title-user fw-6">@lang('dashboard.direction')</label>
+                                <div class="nice-select direction" tabindex="0">
+                                    <span class="current">
+                                        {{ isset($property) ? __('dashboard.' . $property->direction) : __('dashboard.select') . ' ' . __('dashboard.direction') }}
+                                    </span>
+                                    <ul class="list">
+                                        <li data-value class="option selected">
+                                            @lang('dashboard.select') @lang('dashboard.direction')
+                                        </li>
+                                        <li data-value="north" class="option {{ old('direction', isset($property) && $property->direction == 'north' ? 'selected' : '') }}">
+                                            @lang('dashboard.north')
+                                        </li>
+                                        <li data-value="south" class="option {{ old('direction', isset($property) && $property->direction == 'south' ? 'selected' : '') }}">
+                                            @lang('dashboard.south')
+                                        </li>
+                                        <li data-value="east" class="option {{ old('direction', isset($property) && $property->direction == 'east' ? 'selected' : '') }}">
+                                            @lang('dashboard.east')
+                                        </li>
+                                        <li data-value="west" class="option {{ old('direction', isset($property) && $property->direction == 'west' ? 'selected' : '') }}">
+                                            @lang('dashboard.west')
+                                        </li>
+                                    </ul>
+                                </div>
+                                <input type="hidden" name="direction" id="direction-id" value="{{ old('direction', isset($property) ? $property->direction : '') }}">
+                                <div id="directionError" style="color: red; display: none;">
+                                    @lang('dashboard.Please select at least one') @lang('dashboard.direction').
+                                </div>
+                                @error('direction')
                                     <span class="invalid-feedback text-danger" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                                </div> 
-                            </div> 
+                            </div>
                         </div>
+                    </div>
                     </div> 
 
                     {{--  --}}
@@ -166,7 +196,9 @@ textarea, input[type=text], input[type=password], input[type=datetime], input[ty
                                 <div class="select-img flex">
                                     @foreach($primaryAmenities as $index => $primaryAmenity)
                                         <div style="margin-left:30px" class="box-icon" data-id="{{ $primaryAmenity->id }}" data-sub-amenities="{{ $primaryAmenity->subAmenities->toJson() }}">
-                                            <div class="inner flex option align-center">
+                                            <div class="inner flex option primaryAmenities align-center {{ isset($property) && $property->primaryAmenities->contains($primaryAmenity->id) ? 'selected' : '' }}"
+                                                 data-primaryAmenity-id="{{ $primaryAmenity->id }}"
+                                                 onclick="toggleprimaryAmenity({{ $primaryAmenity->id }}, this)">
                                                 <div class="icon">
                                                     <img src="{{ $primaryAmenity->icon }}" alt="">
                                                     <span class="symbol-label" style="background-image:url({{ $primaryAmenity->icon }});"></span>
@@ -178,7 +210,10 @@ textarea, input[type=text], input[type=password], input[type=datetime], input[ty
                                         </div>
                                     @endforeach
                                 </div>
-                                <input type="hidden" name="primary_amenities" id="primaryAmenitiesInput">
+                                <input type="hidden" name="primary_amenities" id="primaryAmenitiesInput" 
+                                data-selected-primaryAmenities="{{ json_encode(old('primary_amenities', isset($property) ? $property->primaryAmenities->pluck('id')->toArray() : [])) }}"
+                                value="{{ old('primary_amenities', isset($property) ? $property->primaryAmenities->pluck('id')->implode(',') : '') }}">
+                                {{--  --}}
                                 @error('primary_amenities')
                                 <span class="invalid-feedback text-danger" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -200,44 +235,55 @@ textarea, input[type=text], input[type=password], input[type=datetime], input[ty
                         @enderror
                         </div>
                     </div>
-                    <div class="two-in-one wrap-style bg-white"> 
+                    {{-- start Handle  Selection Property Feature  --}}
+
+                    <div class="two-in-one wrap-style bg-white">
                         <div class="kitchen-details">
                             <h3 class="titles">@lang('dashboard.property-features')</h3>
                             <div class="info pt-sm-5">
                                 <h5 class="mb-sm-3">@lang('dashboard.property-features')</h5>
                             </div>
                             <div class="select-img select-text flex">
-                                @foreach($propertyFeatures as $index => $propertyFeature)
+                                @foreach($propertyFeatures as $propertyFeature)
                                 <div style="margin-left:30px" class="box-icon">
-                                    <div class="inner flex option align-center" onclick="togglePropertyFeature({{$propertyFeature->id}})">
+                                    <div class="inner flex option propertyFeature  align-center {{ isset($property) && $property->propertyFeatures->contains($propertyFeature->id) ? 'selected' : '' }}" 
+                                         data-feature-id="{{ $propertyFeature->id }}"
+                                         onclick="togglePropertyFeature({{ $propertyFeature->id }}, this)">
                                         <div class="icon">
-                                            <img src="{{$propertyFeature->icon}}" alt="">
-                                            <span class="symbol-label" style="background-image:url({{$propertyFeature->icon}});"></span>
+                                            <img src="{{ $propertyFeature->icon }}" alt="">
+                                            <span class="symbol-label" style="background-image:url({{ $propertyFeature->icon }});"></span>
                                         </div>
                                         <div class="content">
-                                            <div class="font-2">{{$propertyFeature->name}}</div>
+                                            <div class="font-2">{{ $propertyFeature->name }}</div>
                                         </div>
                                     </div>
                                 </div>
                                 @endforeach
                             </div>
-                            <input type="hidden" name="property_features" id="propertyFeaturesInput">
-                            <div id="propertyFeaturesError" style="color: red; display: none;">@lang('dashboard.Please select at least one') @lang('dashboard.property-features') .</div>
+                            <input type="hidden" name="property_features" id="propertyFeaturesInput" 
+                                   data-selected-features="{{ json_encode(old('property_features', isset($property) ? $property->propertyFeatures->pluck('id')->toArray() : [])) }}"
+                                   value="{{ old('property_features', isset($property) ? $property->propertyFeatures->pluck('id')->implode(',') : '') }}">
+                            <div id="propertyFeaturesError" style="color: red; display: none;">
+                                @lang('dashboard.Please select at least one') @lang('dashboard.property-features').
+                            </div>
                             @error('property_features')
                             <span class="invalid-feedback text-danger" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
-                        @enderror
+                            @enderror
                         </div>
-
                     </div>
+                    {{-- end Handle  Selection Property Feature  --}}
+                    {{-- booking condition --}}
                     <div class="two-in-one wrap-style bg-white"> 
                         <div class="kitchen-details">
                             <h3 class="titles pb-sm-5">@lang('dashboard.booking-conditions')   <span>@lang('dashboard.optional')</span></h3>
                             <div class="select-img select-text flex">
                                 @foreach($bookingConditions as $index => $bookingCondition)
                                 <div style="margin-left:30px" class="box-icon">
-                                    <div class="inner flex option align-center" onclick="toggleBookingCondition({{$bookingCondition->id}})">
+                                    <div class="inner flex option bookingCondition align-center {{ isset($property) && $property->propertyBookingConditions->contains($bookingCondition->id) ? 'selected' : '' }}" 
+                                        data-condition-id="{{ $bookingCondition->id }}"
+                                        onclick="toggleBookingCondition({{ $bookingCondition->id }}, this)">
                                         <div class="icon">
                                             <img src="{{$bookingCondition->icon}}" alt="">
                                             <span class="symbol-label" style="background-image:url({{$bookingCondition->icon}});"></span>
@@ -249,7 +295,9 @@ textarea, input[type=text], input[type=password], input[type=datetime], input[ty
                                 </div>
                                 @endforeach
                             </div>
-                            <input type="hidden" id="bookingConditionsInput" name="bookingConditions">
+                            <input type="hidden" name="bookingConditions" id="bookingConditionsInput" 
+                            data-selected-booking="{{ json_encode(old('bookingConditions', isset($property) ? $property->propertyBookingConditions->pluck('id')->toArray() : [])) }}"
+                            value="{{ old('bookingConditions', isset($property) ? $property->propertyBookingConditions->pluck('id')->implode(',') : '') }}">
                             @error('bookingConditions')
                             <span class="invalid-feedback text-danger" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -362,33 +410,51 @@ textarea, input[type=text], input[type=password], input[type=datetime], input[ty
                                 </div>
                             </div> 
                         </div>
-                    <div class="tf-upload">
-                        <h3 class="titles">صور العقار</h3>
-                        <h4 class="titles">مطلوب رفع صورة واحدة كحد أدنى *</h4>
-                        <div class="wrap-upload center">
-                            <div class="box-upload">
-                                <div class="img-up relative">                                
-                                    <img class="avatar" id="profileimg" src="assets/images/icon/icon-upload.png" alt="">                                    
-                                </div>                      
-                                <div class="button-box relative" id="upload-profile">
-                                    <a href="#" class="btn-upload sc-button">
-                                        <span>اختار الصور</span> </a>
-                                        <input id="tf-upload-img" type="file" accept="image/*" name="images[]" multiple required>
+                        <div class="tf-upload">
+                            <h3 class="titles">صور العقار</h3>
+                            <h4 class="titles">مطلوب رفع صورة واحدة كحد أدنى *</h4>
+                            <div class="wrap-upload center">
+                                <div class="box-upload">
+                                    <!-- Existing Images Display -->
+                                    <div class="existing-images">
+                                        @if(isset($property) && $property->images)
+                                        <div class="row">
+                                            @foreach($property->images as $image)
+                                                <div  class="image-item col-md-3"  data-id="{{ $image->id }}">
+                                                    <img width="100" hight="100" src="{{ asset($image->image) }}" alt="Property Image" class="uploaded-img">
+                                                    <br>
+                                                    <a type="button" class="remove-file btn-delete-image  fw-6" data-id="{{ $image->id }}"><i class="fal fa-trash-alt"></i></a>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                        @endif
+                                    </div>
+                        
+                                    <!-- Upload New Images -->
+                                    <div class="img-up relative">
+                                        <img width="100" hight="100" class="avatar" id="profileimg" src="assets/images/icon/icon-upload.png" alt="">
+                                    </div>                      
+                                    <div class="button-box relative" id="upload-profile">
+                                        <a href="#" class="btn-upload sc-button">
+                                            <span>اختار الصور</span> 
+                                        </a>
+                                        <input id="tf-upload-img" type="file" accept="image/*" name="images[]" multiple>
                                     </div> 
                                     @error('images')
                                     <span class="invalid-feedback text-danger" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                @enderror
-                                <div class="text-up-box">
-                                    <p class="text-color-2">أو اسحب الصور هنا</p>
-                                    <p> (ما يصل إلى  صور)</p>
-                                </div>  
-                            </div>
-                          
+                                    @enderror
+                                    <div class="text-up-box">
+                                        <p class="text-color-2">أو اسحب الصور هنا</p>
+                                        <p>(ما يصل إلى X صور)</p>
+                                    </div>  
+                                </div>
+                            </div> 
                         </div> 
                         
-                    </div> 
+                        <!-- Hidden input to track deleted images -->
+                        <input type="hidden" name="deleted_images" id="deleted_images">
                     <div class="tf-save">
                         <div class="wrap-button flex justify-center">
                             <button class="sc-button" name="submit" type="submit" >
@@ -407,7 +473,7 @@ textarea, input[type=text], input[type=password], input[type=datetime], input[ty
         </div>
     </section>
   </div>
-  <script src="{{asset('client/app/js/properties.js')}}"></script>
+  <script src="{{asset('client/app/js/propertiesEdit.js')}}"></script>
    
   
 @endsection

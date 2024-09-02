@@ -215,7 +215,9 @@ return [
     'en' =>'اللغة الإنجليزية',
     "A distinctive description of your property"=>"أكتب وصف مميز لإعلانك",
     "title"=>"عنوان",
-    "Example: self-entry"=>"مثـال : دخول ذاتى"
+    "Example: self-entry"=>"مثـال : دخول ذاتى",
+    "refused"=>"تم الرفض",
+    "Images Property"=>"صور العقار"
 
 
 

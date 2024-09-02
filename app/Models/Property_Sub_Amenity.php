@@ -36,6 +36,6 @@ class Property_Sub_Amenity extends Model
 
     public function subAmenities()
     {
-        return $this->hasMany(SubAmenity::class, 'primary_amenity_id');
+        return $this->belongsTo(SubAmenity::class,'sub_amenity_id');
     }
 }

@@ -52,6 +52,11 @@ class Property extends Model
         return $this->belongsToMany(BookingCondition::class, 'property_BookingCondition');
     }
 
+    public function Property_Sub_Amenity()
+    {
+        return $this->hasMany(Property_Sub_Amenity::class);
+    }
+
     
 
     public function images()

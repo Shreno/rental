@@ -238,5 +238,3 @@ document.addEventListener('DOMContentLoaded', function() {
     
         return isValid; // Return true if all conditions are met, otherwise false
     }
-
-

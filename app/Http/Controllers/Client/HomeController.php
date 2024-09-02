@@ -32,7 +32,7 @@ class HomeController extends Controller
 
         $properties = Property::where('user_id', auth()->user()->id)
         ->latest()
-        ->get();
+        ->paginate(5);
         return view('client.home',compact('properties','property_Active','property_Inctive'));
     }
     public function SetLanguage($lang)

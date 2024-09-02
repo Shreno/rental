@@ -15,6 +15,8 @@ use Illuminate\Pagination\Paginator;
 use App\Models\Notification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Schema;
+
 
 
 
@@ -39,6 +41,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Schema::defaultStringLength(191); // Limits the length of indexed strings
+
         Category       ::observe(CategoryObserver::class);
         Banner         ::observe(BannerObserver::class);
         InitialPage    ::observe(InitialPageObserver::class);

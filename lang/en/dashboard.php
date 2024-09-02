@@ -202,4 +202,6 @@ return [
     "A distinctive description of your property"=>"A distinctive description of your property",
     "title"=>"title",
     "Example: self-entry"=>"Example: “self-entry”",
+    "refused"=>"refused",
+    'Images Property'=>"Images Property",
 ];

@@ -12,6 +12,8 @@ use App\Models\PrimaryAmenity;
 use App\Models\SubAmenity;
 use App\Models\PropertyFeature;
 use Illuminate\Http\Request;
+use App\Helpers\Notifications;
+
 
 class PropertyController extends Controller
 {
@@ -22,12 +24,35 @@ class PropertyController extends Controller
         return view('dashboard.properties.index', compact('properties'));
     }
 
-    public function active ($property)
+    public function active ($property,request $request)
     {
         $property = Property::findOrFail($property);
-        $property->update(['is_active'=>1]);
+        $property->update(['is_active'=>$request->is_active,'admin_message'=>$request->admin_message]);
+        if($request->admin_message!=null)
+        {
+            $admin_message=$request->admin_message;
+        }else{
+            $admin_message="";
+
+        }
+        if($request->is_active==2)
+        {        Notifications::addNotification('تم رفض العقار '.$property->title.'',$admin_message);
+
+
+        }else{
+                   Notifications::addNotification('تمت الموافقة على العقار '.$property->title.'',$admin_message);
+
+        }
+
 
         return redirect()->route('properties.index');
+    }
+
+    public function show($property){
+        $property = Property::findOrFail($property);
+        return view('dashboard.properties.show', compact('property'));
+
+
     }
 
 
