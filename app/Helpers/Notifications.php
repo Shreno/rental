@@ -15,7 +15,7 @@ class Notifications
 
 
 
-    public static function addNotification($title, $message)
+    public static function addNotification($id=null,$title, $message)
     {
 		$notification = Notification::latest()->first();
     	$log = [];
@@ -27,8 +27,11 @@ class Notifications
 			$log['id'] = $notification->id+1;
 
 		}
+		if($id==null){
+			$id=1;
+		}
 
-    	$log['notifiable_id'] = 1;
+    	$log['notifiable_id'] = $id;
     	$log['title'] = $title;
     	$log['data'] = $message;
     	$log['notifiable_type'] = 'web';

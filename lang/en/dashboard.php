@@ -206,4 +206,8 @@ return [
     'Images Property'=>"Images Property",
     "Personal profile"=>"Personal profile",
     "logout"=>"logout",
+    "No notifications"=>"No notifications",
+    "All notifications"=>"All notifications",
+
+
 ];

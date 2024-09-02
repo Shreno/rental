@@ -36,11 +36,11 @@ class PropertyController extends Controller
 
         }
         if($request->is_active==2)
-        {        Notifications::addNotification('تم رفض العقار '.$property->title.'',$admin_message);
+        {        Notifications::addNotification($property->user_id,'تم رفض العقار '.$property->title.'',$admin_message);
 
 
         }else{
-                   Notifications::addNotification('تمت الموافقة على العقار '.$property->title.'',$admin_message);
+                   Notifications::addNotification($property->user_id,'تمت الموافقة على العقار '.$property->title.'',$admin_message);
 
         }
 

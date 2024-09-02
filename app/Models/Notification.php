@@ -3,21 +3,23 @@
 namespace App\Models;
 use App\Traits\NotificationMessageTrait;
 use Illuminate\Notifications\DatabaseNotification;
+use Spatie\Translatable\HasTranslations;
+
 
 class Notification extends DatabaseNotification
 {
-    use NotificationMessageTrait ;
+    use NotificationMessageTrait ,HasTranslations;
+    public $translatable = ['title','body'];
 
-    
-    public function getTypeAttribute($value)
+    protected function asJson($value)
+    {
+        return json_encode($value, JSON_UNESCAPED_UNICODE);
+    }    public function getTypeAttribute($value)
     {
         return $this->data['type'] ;
     }
 
-    public function getTitleAttribute($value)
-    {
-        return app()->getLocale() == 'en' ? $this->data['title'] : $this->data['title_ar']; 
-    }
+   
 
     public function getBodyAttribute($value)
     {   

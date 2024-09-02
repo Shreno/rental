@@ -220,6 +220,9 @@ return [
     "Images Property"=>"صور العقار",
     "Personal profile"=>"ملف الشخصى",
     "logout"=>"تسجيل خروج",
+    "No notifications"=>"لا يوجد إشعارات ",
+    "All notifications"=>"جميع الإشعارات",
+
 
 
 

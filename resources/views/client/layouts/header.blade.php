@@ -95,7 +95,7 @@
                         <div class="header-account flex align-center">
                             {{-- notifuction --}}
                             <div class="avatars-box flex align-center">
-                                    <a href="{{route('client.notifications')}}" class="" data-toggle="dropdown">
+                                    <a href="{{route('client.notifications')}}" class="" >
                                         <i class="fa fa-bell"></i>
                                         @if ($notificationsBar->count() > 0)
                                         <span class="label label-warning">({{ $notificationsBar->count() }})</span>

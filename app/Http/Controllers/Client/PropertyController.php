@@ -112,7 +112,7 @@ class PropertyController extends Controller
         foreach ($data['images'] as $image) {
             $property->images()->create(['image' => $image]);
         }
-        Notifications::addNotification('تمت إضافة عقار جديد', 'تمت اضافة عقار جديد يرجى الموافقة علية.'.$property->title .route('properties.index').'');
+        Notifications::addNotification(1,'تمت إضافة عقار جديد', 'تمت اضافة عقار جديد يرجى الموافقة علية.'.$property->title .route('properties.index').'');
 
 
         return redirect()->route('client.dashboard');
