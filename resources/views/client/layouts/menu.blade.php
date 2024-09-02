@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="profile-box">
-            <div class="title-1 fw-6">الملف الشخصى</div>
+            <div class="title-1 fw-6">@lang('dashboard.Personal profile')</div>
             <div class="avatar-box flex align-center">
                 <div class="avatar flex-none">
                     <img src="{{ auth()->user()->image ? auth()->user()->image : asset('images/logo.png') }}" alt="" title="">
@@ -20,6 +20,8 @@
                 <div class="content">
                     <div class="sub-title fs-12 lh-18">الحساب</div>
                     <div class="titles fw-6"><a href="">{{auth()->user()->email}}</a> </div>
+                    <a href="{{route('client.logout')}}">@lang('dashboard.logout')</a>
+
                 </div>
             </div>
         </div>

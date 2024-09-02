@@ -1036,6 +1036,8 @@ Route::get('files/storage/{filePath}', [AdminController::class,'fileStorageServe
 
  /*** USE AUTH AREA  */
  Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+ Route::get('client/logout', [LoginController::class, 'logout'])->name('client.logout');
+
  Route::post('login', [LoginController::class, 'login']);
  // REHIESTER
  Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');

@@ -70,5 +70,18 @@ class LoginController extends Controller
         return redirect()->back()
             ->with('error', 'البيانات غير موجودة'); // Redirect back with an error message
     }
+    public function logout(Request $request)
+    {
+        $usertype=Auth()->user()->user_type;
+        Auth::logout();
+        if($usertype==1)
+        {
+            return redirect('/login');
+
+        }else{
+            return redirect('/');
+
+        }
+    }
 
 }

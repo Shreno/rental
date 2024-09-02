@@ -204,4 +204,6 @@ return [
     "Example: self-entry"=>"Example: “self-entry”",
     "refused"=>"refused",
     'Images Property'=>"Images Property",
+    "Personal profile"=>"Personal profile",
+    "logout"=>"logout",
 ];

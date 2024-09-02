@@ -217,7 +217,9 @@ return [
     "title"=>"عنوان",
     "Example: self-entry"=>"مثـال : دخول ذاتى",
     "refused"=>"تم الرفض",
-    "Images Property"=>"صور العقار"
+    "Images Property"=>"صور العقار",
+    "Personal profile"=>"ملف الشخصى",
+    "logout"=>"تسجيل خروج",
 
 
 
