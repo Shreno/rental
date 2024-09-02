@@ -28,6 +28,12 @@ class ClientController extends Controller
         return view('dashboard.clients.index' , compact('clients'));
     }
 
+    public function show($id)
+    {
+        $client = $this->clientRepository->findOne($id);
+        return view('dashboard.clients.show' , compact('client'));
+    }
+
     public function create()
     {
         return view('dashboard.clients.create');

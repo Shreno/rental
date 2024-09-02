@@ -84,7 +84,7 @@
                                     <div class="d-flex">
                                         <div class="ms-5">
                                             <!--begin::Title-->
-                                            <a href="{{ route('clients.edit', $client->id) }}" class="text-gray-800 text-hover-primary fs-5 fw-bolder mb-1" data-kt-ecommerce-category-filter="name">{{$client->name}}</a>
+                                            <a href="{{ route('clients.show', $client->id) }}" class="text-gray-800 text-hover-primary fs-5 fw-bolder mb-1" data-kt-ecommerce-category-filter="name">{{$client->name}}</a>
                                             <!--end::Title-->
                                         </div>
                                     </div>

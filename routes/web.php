@@ -676,6 +676,12 @@ Route::post('clients/store', [
     'as'    => 'clients.store',
     'title' => ['actions.add', 'dashboard.clients']
 ]);
+# clients show
+Route::get('clients/{id}/show', [
+    'uses'  => 'ClientController@show',
+    'as'    => 'clients.show',
+    'title' => ['actions.show', 'dashboard.clients']
+]);
 
 # clients update
 Route::get('clients/{id}/edit', [

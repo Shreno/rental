@@ -251,6 +251,29 @@ class User extends Authenticatable
         }
     }
 
+    // 
+    public function properties()
+    {
+        return $this->hasMany(Property::class);
+    }
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class,'owner_id');
+    }
+
+    public function payments()
+    {
+      
+        return $this->hasMany(Payment::class,'owner_id');
+    }
+    public function bank_accounts()
+    {
+      
+        return $this->hasMany(Bank_account::class,'user_id');
+    }
+    
+
+
 
 
 }
