@@ -1021,6 +1021,9 @@ Route::group(['middleware' => ['auth',  'admin-lang' , 'client' ] , 'prefix' => 
     Route::get('/set-lang/{lang}', 'App\Http\Controllers\Client\HomeController@SetLanguage');
     Route::resource('/client-properties', 'App\Http\Controllers\Client\PropertyController');
     Route::delete('/delete-image/{id}', 'App\Http\Controllers\Client\PropertyController@delete_image')->name('image.destroy');
+    Route::get('/client-notifications', 'App\Http\Controllers\Client\notificationController@index')->name('client.notifications');
+
+    
 
 
 

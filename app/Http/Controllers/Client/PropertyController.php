@@ -79,8 +79,11 @@ class PropertyController extends Controller
             'rate_per_day'=>$data['rate_per_day'],
 
         ]);
-        $primary_amenities = json_decode($request->primary_amenities, true);
-        $property_features = json_decode($request->property_features, true);
+        // $primary_amenities = json_decode($request->primary_amenities, true);
+        // $property_features = json_decode($request->property_features, true);
+        $primary_amenities = explode(',', $data['primary_amenities']);
+        $property_features = explode(',', $data['property_features']);
+
 
         $property->primaryAmenities()->attach($primary_amenities);
         $property->propertyFeatures()->attach($property_features);
