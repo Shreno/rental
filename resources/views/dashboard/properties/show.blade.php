@@ -133,6 +133,24 @@
                                     </div>
                                 </div>
                                 <!--end::Heading-->
+
+                                    <!--begin::Input group-->
+                                    <div class="row fv-row mb-7 fv-plugins-icon-container">
+                                        <div class="col-md-3 text-md-end">
+                                            <!--begin::Label-->
+                                            <label class="fs-6 fw-semibold form-label mt-3">
+                                                <span class="required">@lang('dashboard.client') </span>
+                                                <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" aria-label="Set the title of the store for SEO." data-kt-initialized="1"></i>
+                                            </label>
+                                            <!--end::Label-->
+                                        </div>
+                                        <div class="col-md-9">
+                                            <!--begin::Input-->
+                                            <input disabled type="text" class="form-control form-control-solid" name="app_name_en" value="{{$property->user->name}}">
+                                            <!--end::Input-->
+                                        <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                    </div>
+                                    <!--end::Input group-->
                                
                                 <!--begin::Input group-->
                                 <div class="row fv-row mb-7 fv-plugins-icon-container">
