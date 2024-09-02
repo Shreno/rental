@@ -21,7 +21,10 @@ class NotificationController extends Controller
 {
     public function index()
     {
-       $notifications = ModelsNotification::latest()->get();
+       $notifications = ModelsNotification::where(function ($q) {
+        $q->where('notifiable_id', Auth()->user()->id);
+        })->unread()->orderBy('id','desc')
+         ->paginate(15);
     
        return view('dashboard.notifications.index' , compact('notifications'));
     }
@@ -38,7 +41,6 @@ class NotificationController extends Controller
         if ($request->user_type == 'all_users' ) {
             $rows = User::get() ; 
         }
-       
         dispatch(new Notify($rows, $request));
         
         

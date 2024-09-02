@@ -70,6 +70,7 @@
                     <!--begin::Table body-->
                     <tbody class="fw-bold text-gray-600">
                         @foreach ($notifications as $notification)
+                     
                             <!--begin::Table row-->
                             <tr data-id="{{$notification->id}}">
                                 <!--begin::Checkbox-->
@@ -87,7 +88,7 @@
                                         <div class="ms-5">
                                             <!--begin::Title-->
                                             <a href="#" 
-                                                class="text-gray-800 text-hover-primary fs-5 fw-bolder mb-1" data-kt-ecommerce-category-filter="category_name">{{$notification->title}}
+                                                class="text-gray-800 text-hover-primary fs-5 fw-bolder mb-1" data-kt-ecommerce-category-filter="category_name">{{$notification->data['title_'.lang()]}}
                                             </a>
                                                 <div class="text-muted fs-7 fw-bolder">{{$notification->sender['name']}}</div>
                                         </div>
@@ -97,7 +98,7 @@
                                 <!--begin::Type=-->
                                 <td>
                                     <!--begin::Badges-->
-                                    <div class="text-muted fs-7 fw-bolder">{{$notification->data['body_'.lang()]}}</div>
+                                    <div class="text-muted fs-7 fw-bolder"> {{$notification->data['body_'.lang()]}}</div>
                                     <!--end::Badges-->
                                 </td>
                                 <!--end::Type=-->

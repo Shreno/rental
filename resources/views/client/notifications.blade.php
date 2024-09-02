@@ -31,11 +31,13 @@
                                         <div class="images">
                                             <img src="{{asset('images/notifications.png')}}" alt="" width="197" height="48" class="img-logo">
                                         </div>
+                                        {{$notification->sender['name']}}
                                         <p class="fs-12 lh-18">{{ $notification->created_at->diffForHumans() }}</p>
                                     </div>
                                     <div class="content">
-                                        <p class="text-color-2">{{ $notification->getTranslation('title', app()->getLocale()) }}
+                                        <p class="text-color-2">{{$notification->data['title_'.lang()]}}
                                         </p>
+                                        {{$notification->data['body_'.lang()]}}
                                        
                                     </div>
                                 </li>

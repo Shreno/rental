@@ -16,6 +16,10 @@ use App\Models\Property_Sub_Amenity;
 use App\Helpers\Notifications;
 use App\Models\PropertyImage;
 use Illuminate\Support\Facades\Storage;
+use App\Notifications\NotifyUser;
+use Illuminate\Support\Facades\Notification;
+
+
 
 
 class PropertyController extends Controller
@@ -112,7 +116,17 @@ class PropertyController extends Controller
         foreach ($data['images'] as $image) {
             $property->images()->create(['image' => $image]);
         }
-        Notifications::addNotification(1,'تمت إضافة عقار جديد', 'تمت اضافة عقار جديد يرجى الموافقة علية.'.$property->title .route('properties.index').'');
+
+        $notifyRequest=[
+            'type'=>'notify',
+            'title_ar'=>'تم إضافة  العقار: ' . $property->getTranslation('title', 'ar'),
+            'title_en'=>'The property has been added'.$property->getTranslation('title', 'en'),
+            'body_ar'=>'تم إضافة  العقار: ' . $property->getTranslation('title', 'ar'),
+            'body_en'=>'sThe property has been added'.$property->getTranslation('title', 'en'),
+        ];
+        // 
+        $user=User::find(1);
+        Notification::send($user , new NotifyUser($notifyRequest));
 
 
         return redirect()->route('client.dashboard');

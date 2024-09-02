@@ -12,7 +12,9 @@ use App\Models\PrimaryAmenity;
 use App\Models\SubAmenity;
 use App\Models\PropertyFeature;
 use Illuminate\Http\Request;
-use App\Helpers\Notifications;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\NotifyUser;
+
 
 
 class PropertyController extends Controller
@@ -28,6 +30,7 @@ class PropertyController extends Controller
     {
         $property = Property::findOrFail($property);
         $property->update(['is_active'=>$request->is_active,'admin_message'=>$request->admin_message]);
+        $user=User::find($property->user_id);
         if($request->admin_message!=null)
         {
             $admin_message=$request->admin_message;
@@ -35,14 +38,19 @@ class PropertyController extends Controller
             $admin_message="";
 
         }
-        if($request->is_active==2)
-        {        Notifications::addNotification($property->user_id,'تم رفض العقار '.$property->title.'',$admin_message);
 
+        $notifyRequest=[
+            'type'=>'notify',
+            'title_ar'=>'تمت الموافقة على العقار: ' . $property->getTranslation('title', 'ar'),
+            'title_en'=>'The property has been approved'.$property->getTranslation('title', 'en'),
+            'body_ar'=>$admin_message,
+            'body_en'=>$admin_message,
+        ];
+       
+    
+ 
+            Notification::send($user , new NotifyUser($notifyRequest));
 
-        }else{
-                   Notifications::addNotification($property->user_id,'تمت الموافقة على العقار '.$property->title.'',$admin_message);
-
-        }
 
 
         return redirect()->route('properties.index');

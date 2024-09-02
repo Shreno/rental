@@ -50,7 +50,7 @@
                 <div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
                     {{-- notivication --}}
                     <div>
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <a href="{{route('notifications.index')}}" >
                             <i class="fa fa-bell"></i>
                             @if ($notificationsBar->count() > 0)
                             <span class="label label-warning">{{ $notificationsBar->count() }}</span>
