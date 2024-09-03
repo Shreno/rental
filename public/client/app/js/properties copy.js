@@ -89,21 +89,22 @@ document.addEventListener('DOMContentLoaded', function() {
         const subAmenitiesContainer = document.getElementById('subAmenitiesContainer');
         const subAmenitiesInput = document.getElementById('sub_amenities');
         const imageInput = document.getElementById('tf-upload-img');
+        const preferredLanguage = 'ar'; // Replace 'ar' with 'en' or another language code as needed
+    
         let selectedSubAmenities = {};
         let selectedPrimaryAmenities = new Set();
     
         primaryAmenities.forEach(function (box) {
             box.addEventListener('click', function () {
                 const primaryAmenityId = box.getAttribute('data-id');
-                
                 const subAmenities = JSON.parse(box.getAttribute('data-sub-amenities'));
     
                 if (selectedPrimaryAmenities.has(primaryAmenityId)) {
                     selectedPrimaryAmenities.delete(primaryAmenityId);
-                    removeSubAmenities(primaryAmenityId);
+                    removeSubAmenities(subAmenities);
                 } else {
                     selectedPrimaryAmenities.add(primaryAmenityId);
-                    addSubAmenities(primaryAmenityId);
+                    addSubAmenities(subAmenities);
                 }
     
                 primaryAmenitiesInput.value = Array.from(selectedPrimaryAmenities).join(',');
@@ -114,19 +115,43 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     
-        function addSubAmenities(primaryAmenityId) {
-            document.querySelectorAll(`.subAmenitie[data-id="${primaryAmenityId}"]`).forEach(sub => {
-                sub.style.display = 'block';
+        function addSubAmenities(subAmenities) {
+            subAmenities.forEach(function (subAmenity) {
+                if (!selectedSubAmenities[subAmenity.id]) {
+                    const subAmenityDiv = document.createElement('div');
+                    subAmenityDiv.classList.add('wg-box');
+                    subAmenityDiv.setAttribute('data-sub-amenity-id', subAmenity.id);
+                    const subAmenityName = subAmenity.name[preferredLanguage];
+    
+                    subAmenityDiv.innerHTML = `
+                        <label class="title-user fw-6">${subAmenityName}</label>
+                        <div class="box-quantity flex align-center">
+                            <div class="quantity flex align-center">
+                                <a class="btn-quantity plus-btn"><i class="far fa-plus"></i></a>
+                                <div class="input-text">
+                                    <input type="number" name="sub_amenities[${subAmenity.id}]" value="1" class="quantity-number" min="1">
+                                </div>
+                                <a class="btn-quantity minus-btn"><i class="far fa-minus"></i></a>
+                            </div>
+                        </div>
+                    `;
+    
+                    subAmenitiesContainer.appendChild(subAmenityDiv);
+                    selectedSubAmenities[subAmenity.id] = 1;
+    
+                    addQuantityListeners(subAmenityDiv);
+                }
             });
-            addQuantityListeners(subAmenityDiv);
-              
         }
     
-        function removeSubAmenities(primaryAmenityId) {
-            document.querySelectorAll(`.subAmenitie[data-id="${primaryAmenityId}"]`).forEach(sub => {
-                sub.style.display = 'none';
+        function removeSubAmenities(subAmenities) {
+            subAmenities.forEach(function (subAmenity) {
+                const subAmenityDiv = subAmenitiesContainer.querySelector(`[data-sub-amenity-id="${subAmenity.id}"]`);
+                if (subAmenityDiv) {
+                    subAmenityDiv.remove();
+                    delete selectedSubAmenities[subAmenity.id];
+                }
             });
-           
         }
     
         function addQuantityListeners(subAmenityDiv) {

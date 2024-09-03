@@ -188,32 +188,10 @@ textarea, input[type=text], input[type=password], input[type=datetime], input[ty
                             </div>
                             </div>
                         </div>  
-                      
-                    </div>
-                    <div class="two-in-one wrap-style bg-white"> 
                         <div class="tf-bedrooms">
                             <h3 class="titles">@lang('dashboard.Sub-property facilities')</h3>
-                            <div class="quantity-choise row" id="subAmenitiesContainer">
-                                {{--  --}}
-                                @foreach($subAmenities as $subAmenitie)
-                                    <div class="box col-md-4 subAmenitie"  style="display:none" data-id="{{ $subAmenitie->primary_amenity_id }}" >
-                                        <div class="wg-box">
-                                            <label class="title-user fw-6">{{$subAmenitie->name}}</label>
-                                            <div class="box-quantity flex align-center">
-                                                <div class="quantity flex align-center">
-                                                    <a class="btn-quantity plus-btn"><i class="far fa-plus"></i></a>
-                                                    <div class="input-text"><input type="text" name="name" value="1" class="quantity-number"></div>                                                                                                           
-                                                    <a class="btn-quantity minus-btn"><i class="far fa-minus"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br>
-                                @endforeach 
-
-                                {{--  --}}
-                                <div class="row" id="subAmenitiesContainer"></div>
-
+                            <div class="quantity-choise">
+                                <div id="subAmenitiesContainer"></div>
                                 <input type="hidden" id="sub_amenities" name="sub_amenities">
 
                             </div>

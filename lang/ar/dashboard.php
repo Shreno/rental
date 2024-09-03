@@ -222,6 +222,14 @@ return [
     "logout"=>"تسجيل خروج",
     "No notifications"=>"لا يوجد إشعارات ",
     "All notifications"=>"جميع الإشعارات",
+    "Save & preview"=>"حفظ & معاينة",
+    "Insert now"=>"إدراج الأن",
+    "Choose Images"=>"أختار الصور",
+    "Write a unique description of your property"=>"اكتب وصف مميز لعقارك",
+    "Sub-property facilities"=>"المرافق الفرعية",
+    "Choose all the facilities in the property"=>"أختر جميع مرافق العقار",
+    "Property details"=>"تفاصيل العقار ",
+
 
 
 

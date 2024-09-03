@@ -188,7 +188,7 @@ return [
     'west' => 'west',
     'property address'=>'property address',
     'Location on map'=>'Location on map',
-    'enter'      =>'enter',
+    'enter'      =>'Enter',
     'Confirm the property address'=>'Confirm the property address',
     'neighborhood'=>'neighborhood',
     'select'      =>'select',
@@ -197,8 +197,8 @@ return [
     "property description"=>"property description",
     "optional"=>"optional",
     "Please select at least one"=>"Please select at least one",
-    'ar'=>'ar',
-    'en'=>'en',
+    'ar'=>'Arabic Language',
+    'en'=>'English Language',
     "A distinctive description of your property"=>"A distinctive description of your property",
     "title"=>"title",
     "Example: self-entry"=>"Example: “self-entry”",
@@ -208,6 +208,17 @@ return [
     "logout"=>"logout",
     "No notifications"=>"No notifications",
     "All notifications"=>"All notifications",
+    "Save & preview"=>"Save and preview",
+    "Insert now"=>"Insert now",
+    "Choose Images"=>"Choose Images",
+    "properties"=>"properties",
+    "primary-amenities"=>"Primary Amenities",
+    "property-features"=>"Property Features",
+    "Write a unique description of your property"=>"Write a unique description of your property",
+    "Sub-property facilities"=>"Sub-property facilities",
+    "Choose all the facilities in the property"=>"Choose all the facilities in the property",
+    "Property details"=>"Property details",
+
 
 
 ];

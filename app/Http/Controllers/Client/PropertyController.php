@@ -18,6 +18,10 @@ use App\Models\PropertyImage;
 use Illuminate\Support\Facades\Storage;
 use App\Notifications\NotifyUser;
 use Illuminate\Support\Facades\Notification;
+use App\Services\ChatGPTService;
+use Illuminate\Support\Facades\App;
+
+
 
 
 
@@ -37,7 +41,7 @@ class PropertyController extends Controller
         $neighborhoods = Neighborhood::all();
         $users = User::where('user_type',2)->get();
         $primaryAmenities = PrimaryAmenity::all();
-        $subAmenities = SubAmenity::all();
+        $subAmenities = SubAmenity::orderBy('primary_amenity_id','ASC')->get();
         $propertyFeatures = PropertyFeature::all();
         $bookingConditions=BookingCondition::all();
 
@@ -50,10 +54,8 @@ class PropertyController extends Controller
     {
         $sub_amenities = json_decode($request->sub_amenities, true);
         $data = $request->validate([
-            'title.ar' => 'required|string|max:191',
-            'title.en' => 'required|string|max:191',
-            'description.ar' => 'nullable|string',
-            'description.en' => 'nullable|string',
+            'title' => 'required|string|max:191',
+            'description' => 'nullable|string',
             'map' => 'nullable|string|max:255',
             'address' => 'required|string|max:255',
             'city_id' => 'required|exists:cities,id',
@@ -68,10 +70,30 @@ class PropertyController extends Controller
             'check_out_time' => 'required|date_format:H:i', // Validate check-out time
             'rate_per_day' =>'required|numeric|min:0',
       ]);
+      $locale = App::getLocale();
+    
+         $title = [
+          'ar' => '',
+          'en' => '',
+        ];
+        $description=[
+            'ar' => '',
+            'en' => '',
+        ];
+      if ($locale === 'ar') {
+          $title['ar'] = $request->input('title');
+          $description['ar'] = $request->input('description');
+
+      } else {
+          $title['en'] = $request->input('title');
+          $description['en'] = $request->input('description');
+
+      }
+
 
         $property = Property::create([
-            'title' => $data['title'],
-            'description' => $data['description'],
+            'title' => $title,
+            'description' =>$description,
             'map' => $data['map'],
             'address' => $data['address'],
             'city_id' => $data['city_id'],
@@ -151,10 +173,8 @@ class PropertyController extends Controller
     {
         $property = Property::findOrFail($property);
         $data = $request->validate([
-            'title.ar' => 'required|string|max:191',
-            'title.en' => 'required|string|max:191',
-            'description.ar' => 'nullable|string',
-            'description.en' => 'nullable|string',
+            'title' => 'required|string|max:191',
+            'description' => 'nullable|string',
             'map' => 'nullable|string',
             'address' => 'required|string|max:255',
             'city_id' => 'required|exists:cities,id',
@@ -172,13 +192,34 @@ class PropertyController extends Controller
 
         ]);
 
+        $locale = App::getLocale();
+    
+        $title = [
+         'ar' => '',
+         'en' => '',
+       ];
+       $description=[
+           'ar' => '',
+           'en' => '',
+       ];
+     if ($locale === 'ar') {
+         $title['ar'] = $request->input('title');
+         $description['ar'] = $request->input('description');
+
+     } else {
+         $title['en'] = $request->input('title');
+         $description['en'] = $request->input('description');
+
+     }
+
+
 
 
     
 
         $property->update([
-            'title' => $data['title'],
-            'description' => $data['description'],
+            'title' => $title,
+            'description' => $description,
             'map' => $data['map'],
             'address' => $data['address'],
             'city_id' => $data['city_id'],
