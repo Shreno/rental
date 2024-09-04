@@ -53,6 +53,11 @@ class PropertyController extends Controller
     public function store(Request $request)
     {
         $sub_amenities = json_decode($request->sub_amenities, true);
+        $totalQuantity = array_sum($sub_amenities);
+      
+
+
+
         $data = $request->validate([
             'title' => 'required|string|max:191',
             'description' => 'nullable|string',
@@ -64,7 +69,10 @@ class PropertyController extends Controller
             'primary_amenities' => 'required',
             'sub_amenities' => 'required',
             'property_features' => 'required',
-            'images' => 'required|array',
+            'images' => 'required|array|min:' . $totalQuantity, // totalQuantity should be calculated based on sub_amenities
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // adjust file validation as needed
+
+
             'bookingConditions'=>'nullable',
             'check_in_time' => 'required|date_format:H:i', // Validate check-in time
             'check_out_time' => 'required|date_format:H:i', // Validate check-out time
@@ -105,10 +113,12 @@ class PropertyController extends Controller
             'rate_per_day'=>$data['rate_per_day'],
 
         ]);
-        // $primary_amenities = json_decode($request->primary_amenities, true);
-        // $property_features = json_decode($request->property_features, true);
-        $primary_amenities = explode(',', $data['primary_amenities']);
-        $property_features = explode(',', $data['property_features']);
+        $primary_amenities = array_filter(explode(',', $request->primary_amenities), function($value) {
+            return !empty($value);
+        });
+        $property_features = array_filter(explode(',', $request->property_features), function($value) {
+            return !empty($value);
+        });
 
 
         $property->primaryAmenities()->attach($primary_amenities);
@@ -128,7 +138,9 @@ class PropertyController extends Controller
 
         if($request->bookingConditions!==null)
         {
-            $bookingConditions = explode(',', $data['bookingConditions']);
+            $bookingConditions = array_filter(explode(',', $request->bookingConditions), function($value) {
+                return !empty($value);
+            });
 
             $property->propertyBookingConditions()->attach($bookingConditions);
 

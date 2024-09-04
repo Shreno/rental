@@ -229,6 +229,7 @@ return [
     "Sub-property facilities"=>"المرافق الفرعية",
     "Choose all the facilities in the property"=>"أختر جميع مرافق العقار",
     "Property details"=>"تفاصيل العقار ",
+    "A minimum of images is required"=>"مطلوب رفع صورة واحدة كحد أدنى "
 
 
 

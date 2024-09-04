@@ -218,6 +218,7 @@ return [
     "Sub-property facilities"=>"Sub-property facilities",
     "Choose all the facilities in the property"=>"Choose all the facilities in the property",
     "Property details"=>"Property details",
+    "A minimum of images is required"=>"A minimum of images is required",
 
 
 

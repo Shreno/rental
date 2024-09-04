@@ -59,7 +59,7 @@ textarea, input[type=text], input[type=password], input[type=datetime], input[ty
                     <div class="tf-map bg-white">
                         <h3 class="titles">@lang('dashboard.property address')</h3>
                         <div class="info-box info-wg">
-                            <form onsubmit="return validateForm()" action="{{ isset($property) ? route('client-properties.update', $property->id) : route('client-properties.store') }}" method="POST" enctype="multipart/form-data">
+                            <form  action="{{ isset($property) ? route('client-properties.update', $property->id) : route('client-properties.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @if(isset($property))
                                     @method('PUT')
@@ -194,34 +194,31 @@ textarea, input[type=text], input[type=password], input[type=datetime], input[ty
                         <div class="tf-bedrooms">
                             <h3 class="titles">@lang('dashboard.Sub-property facilities')</h3>
                             <div class="quantity-choise row" id="subAmenitiesContainer">
-                                {{--  --}}
                                 @foreach($subAmenities as $subAmenitie)
-                                    <div class="box col-md-4 subAmenitie"  style="display:none" data-id="{{ $subAmenitie->primary_amenity_id }}" >
+                                    <div class="box col-md-6 subAmenitie" style="display:none;margin-bottom: 10px" data-id="{{ $subAmenitie->primary_amenity_id }}">
                                         <div class="wg-box">
-                                            <label class="title-user fw-6">{{$subAmenitie->name}}</label>
+                                            <label class="title-user fw-6">{{ $subAmenitie->name }}</label>
                                             <div class="box-quantity flex align-center">
                                                 <div class="quantity flex align-center">
                                                     <a class="btn-quantity plus-btn"><i class="far fa-plus"></i></a>
-                                                    <div class="input-text"><input type="text" name="name" value="1" class="quantity-number"></div>                                                                                                           
+                                                    <div class="input-text">
+                                                        <input type="text" name="quantity[{{ $subAmenitie->id }}]" value="1" class="quantity-number">
+                                                    </div>
                                                     <a class="btn-quantity minus-btn"><i class="far fa-minus"></i></a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <br>
-                                @endforeach 
-
-                                {{--  --}}
-                                <div class="row" id="subAmenitiesContainer"></div>
-
+                                @endforeach
+                            
                                 <input type="hidden" id="sub_amenities" name="sub_amenities">
-
                             </div>
+                            
                             @error('sub_amenities')
-                            <span class="invalid-feedback text-danger" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
+                                <span class="invalid-feedback text-danger" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                     </div>
                     <div class="two-in-one wrap-style bg-white"> 
@@ -367,7 +364,7 @@ textarea, input[type=text], input[type=password], input[type=datetime], input[ty
                         </div>
                         <div class="tf-upload">
                             <h3 class="titles">@lang('dashboard.Images Property')</h3>
-                            <h4 class="titles numberofImage">مطلوب رفع صورة واحدة كحد أدنى *</h4>
+                            <h4 class="titles numberofImage">@lang('dashboard.A minimum of images is required')*</h4>
                             <div class="wrap-upload center">
                                 <div class="box-upload">
                                     <div class="img-up relative">
