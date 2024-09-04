@@ -3,19 +3,25 @@
 namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use App\Models\Property;
+use App\Repositories\IClientRepository;
+
 
 
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+    private $clientRepository;
+
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(IClientRepository $clientRepository)
     {
+        $this->clientRepository = $clientRepository;
+
         $this->middleware('auth');
     }
 
@@ -34,6 +40,22 @@ class HomeController extends Controller
         ->latest()
         ->paginate(5);
         return view('client.home',compact('properties','property_Active','property_Inctive'));
+    }
+    public function profile (){
+        return view('client.profile');
+
+    }
+    public function update_profile($id,request $request){
+        $data = $request->all();
+
+        $user = $this->clientRepository->findOne($id);
+        if($request->has('image')){
+            $data['image'] = $request->file('image')->store('dashboard/uploads');
+        }
+
+        $updated = $this->clientRepository->update($data, $id);
+        return redirect()->route('client.profile');
+
     }
     public function SetLanguage($lang)
     {

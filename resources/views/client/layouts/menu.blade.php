@@ -18,8 +18,8 @@
                     <img src="{{ auth()->user()->image ? auth()->user()->image : asset('images/logo.png') }}" alt="" title="">
                 </div>
                 <div class="content">
-                    <div class="sub-title fs-12 lh-18">الحساب</div>
-                    <div class="titles fw-6"><a href="">{{auth()->user()->email}}</a> </div>
+                    <div class="sub-title fs-12 lh-18">@lang('dashboard.profile_details')</div>
+                    <div class="titles fw-6"><a href="{{route('client.profile')}}">{{auth()->user()->email}}</a> </div>
                     <a href="{{route('client.logout')}}">@lang('dashboard.logout')</a>
 
                 </div>
@@ -43,14 +43,14 @@
                 </a>
             </li>
             <li>
-                <a href="dashboard-profile.html" class="has-arrow tf-effect">
+                <a href="{{route('client.profile')}}" class="has-arrow tf-effect">
                 <span class="icon-dash dash-icon">
                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M10.987 14.0674C7.44168 14.0674 4.41406 14.6034 4.41406 16.7502C4.41406 18.8969 7.42247 19.4521 10.987 19.4521C14.5323 19.4521 17.5591 18.9152 17.5591 16.7694C17.5591 14.6235 14.5515 14.0674 10.987 14.0674Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M10.9866 11.0054C13.3132 11.0054 15.1989 9.11885 15.1989 6.79226C15.1989 4.46567 13.3132 2.57996 10.9866 2.57996C8.66005 2.57996 6.77346 4.46567 6.77346 6.79226C6.7656 9.11099 8.6391 10.9976 10.957 11.0054H10.9866Z" stroke="white" stroke-width="1.42857" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </span>
-                <span class="dash-titles">الملف الشخصى</span>
+                <span class="dash-titles">@lang('dashboard.Personal profile')</span>
                 </a>
             </li>
             <li>

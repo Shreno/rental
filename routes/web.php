@@ -1024,6 +1024,10 @@ Route::group(['middleware' => ['auth',  'admin-lang' , 'client' ] , 'prefix' => 
 
    
     Route::get('/home', 'App\Http\Controllers\Client\HomeController@index')->name('client.dashboard');
+    Route::get('/client-profile', 'App\Http\Controllers\Client\HomeController@profile')->name('client.profile');
+    Route::put('/client-profile/update/{id}', 'App\Http\Controllers\Client\HomeController@update_profile')->name('client.profile_update');
+
+
     Route::get('/set-lang/{lang}', 'App\Http\Controllers\Client\HomeController@SetLanguage');
     Route::resource('/client-properties', 'App\Http\Controllers\Client\PropertyController');
     Route::get('/client-property/image/{id}/delete', 'App\Http\Controllers\Client\PropertyController@delete_image')->name('image.destroy');
