@@ -223,12 +223,6 @@ class PropertyController extends Controller
          $description['en'] = $request->input('description');
 
      }
-
-
-
-
-    
-
         $property->update([
             'title' => $title,
             'description' => $description,
@@ -241,34 +235,59 @@ class PropertyController extends Controller
             'check_out_time'=>$data['check_out_time'],
             'rate_per_day'=>$data['rate_per_day'],
             'is_active'=>0
-
-            
-        
-
         ]);
-
-        dd($data['primary_amenities']);
 
         // $property->primaryAmenities()->sync($data['primary_amenities']);
         // $property->subAmenities()->sync($data['sub_amenities']);
+        $primary_amenities = array_filter(explode(',', $request->primary_amenities), function($value) {
+            return !empty($value);
+        });
+        $property->primaryAmenities()->attach($primary_amenities);
+        // 
+        if($request->sub_amenities !=null)
+        {
+            $property->Property_Sub_Amenity()->delete();
 
-        $propertyFeatures = explode(',', $request->property_features);
+            $sub_amenities = json_decode($request->sub_amenities, true);
+            foreach($sub_amenities as $i=>$sub_amenitie)
+            {
+             $Property_Sub_Amenity=new Property_Sub_Amenity();
+             $Property_Sub_Amenity->property_id=$property->id;
+             $Property_Sub_Amenity->sub_amenity_id=$i;
+             $Property_Sub_Amenity->number=$sub_amenitie;
+             $Property_Sub_Amenity->save();
+     
+     
+            }
+    
+
+        }
+      
+
+        // 
+
+
+        $propertyFeatures = array_filter(explode(',', $request->property_features), function($value) {
+            return !empty($value);
+        });
         $property->propertyFeatures()->sync($propertyFeatures);
 
         if($request->bookingConditions!==null)
         {
-            $bookingConditions = explode(',', $request->bookingConditions);
+            $bookingConditions = array_filter(explode(',', $request->bookingConditions), function($value) {
+                return !empty($value);
+            });
 
             $property->propertyBookingConditions()->sync($bookingConditions);
 
         }
 
-        // if (isset($data['images'])) {
-        //     $property->images()->delete();
-        //     foreach ($data['images'] as $image) {
-        //         $property->images()->create(['image' => $image]);
-        //     }
-        // }
+        if (isset($data['images'])) {
+            // $property->images()->delete();
+            foreach ($data['images'] as $image) {
+                $property->images()->create(['image' => $image]);
+            }
+        }
 
         return back();
     }
@@ -298,16 +317,11 @@ class PropertyController extends Controller
     }
     public function delete_image($id){
         $image = PropertyImage::find($id);
-        if ($image) {
-            // Remove the image file from storage
-            Storage::delete($image->image);
-    
-            // Delete the image record from the database
-            $image->delete();
-    
+        if ($image->delete()) {
             return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false], 500);
         }
     
-        return response()->json(['success' => false, 'error' => 'Image not found'], 404);
     }
 }

@@ -404,7 +404,10 @@ textarea, input[type=text], input[type=password], input[type=datetime], input[ty
         </div>
     </section>
   </div>
-  <script src="{{asset('client/app/js/properties.js')}}"></script>
    
   
+@endsection
+@section('scripts')
+<script src="{{asset('client/app/js/properties.js')}}"></script>
+
 @endsection

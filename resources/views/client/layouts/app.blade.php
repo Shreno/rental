@@ -117,6 +117,8 @@
 <script src="{{asset('client/app/js/main.js')}}"></script>
 <script src="{{asset('client/app/js/dashboard-menu.min.js')}}"></script>
 <script src="{{asset('client/app/js/dashboard-menu.js')}}"></script>
+@yield('scripts')
+
 </body>
 
 </html>

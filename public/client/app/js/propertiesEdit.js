@@ -56,76 +56,60 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 // // handel the city & diriction & nuborhoad
-
-
-
-
-
 document.addEventListener('DOMContentLoaded', function () {
-    const primaryAmenities = document.querySelectorAll('.box-icon');
+    const primaryAmenities = document.querySelectorAll('.primaryAmenitiesBox');
     const primaryAmenitiesInput = document.getElementById('primaryAmenitiesInput');
-    const subAmenitiesContainer = document.getElementById('subAmenitiesContainer');
     const subAmenitiesInput = document.getElementById('sub_amenities');
+    const numberOfImageElement = document.querySelector('.numberofImage');
     const imageInput = document.getElementById('tf-upload-img');
-    const preferredLanguage = 'ar'; // Replace 'ar' with 'en' or another language code as needed
+    const initialSelectedPrimaryAmenities = JSON.parse(primaryAmenitiesInput.getAttribute('data-selected-primaryAmenities'));
+
     let selectedSubAmenities = {};
-    let selectedPrimaryAmenities = new Set();
+    let selectedPrimaryAmenities = new Set(initialSelectedPrimaryAmenities);
+
+    // Pre-select amenities based on initial values
     primaryAmenities.forEach(function (box) {
+        const primaryAmenityId = box.getAttribute('data-id');
+        if (selectedPrimaryAmenities.has(parseInt(primaryAmenityId))) {
+            box.classList.add('selected');
+            toggleSubAmenities(primaryAmenityId, true); // Show related sub-amenities on load
+        }
+
         box.addEventListener('click', function () {
-            const primaryAmenityId = box.getAttribute('data-id');
-            const subAmenities = JSON.parse(box.getAttribute('data-sub-amenities'));
-            if (selectedPrimaryAmenities.has(primaryAmenityId)) {
-                selectedPrimaryAmenities.delete(primaryAmenityId);
-                removeSubAmenities(subAmenities);
+            if (selectedPrimaryAmenities.has(parseInt(primaryAmenityId))) {
+                selectedPrimaryAmenities.delete(parseInt(primaryAmenityId));
+                box.classList.remove('selected');
+                toggleSubAmenities(primaryAmenityId, false); // Hide related sub-amenities
             } else {
-                selectedPrimaryAmenities.add(primaryAmenityId);
-                addSubAmenities(subAmenities);
+                selectedPrimaryAmenities.add(parseInt(primaryAmenityId));
+                box.classList.add('selected');
+                toggleSubAmenities(primaryAmenityId, true); // Show related sub-amenities
             }
 
-            primaryAmenitiesInput.value = Array.from(selectedPrimaryAmenities).join(',');
-
-            subAmenitiesInput.value = JSON.stringify(selectedSubAmenities);
-
-            // validateImageUpload();
+            updatePrimaryAmenitiesInput();
+            updateTotalQuantity();
+            updateImageUploadRequirement();
         });
     });
 
-    function addSubAmenities(subAmenities) {
-        subAmenities.forEach(function (subAmenity) {
-            if (!selectedSubAmenities[subAmenity.id]) {
-                const subAmenityDiv = document.createElement('div');
-                subAmenityDiv.classList.add('wg-box');
-                subAmenityDiv.setAttribute('data-sub-amenity-id', subAmenity.id);
-                const subAmenityName = subAmenity.name[preferredLanguage];
+    function toggleSubAmenities(primaryAmenityId, show) {
+        const subAmenityDivs = document.querySelectorAll(`.subAmenitie[data-id="${primaryAmenityId}"]`);
 
-                subAmenityDiv.innerHTML = `
-                        <label class="title-user fw-6">${subAmenityName}</label>
-                        <div class="box-quantity flex align-center">
-                            <div class="quantity flex align-center">
-                                <a class="btn-quantity plus-btn"><i class="far fa-plus"></i></a>
-                                <div class="input-text">
-                                    <input type="number" name="sub_amenities[${subAmenity.id}]" value="1" class="quantity-number" min="1">
-                                </div>
-                                <a class="btn-quantity minus-btn"><i class="far fa-minus"></i></a>
-                            </div>
-                        </div>
-                    `;
+        subAmenityDivs.forEach(sub => {
+            const input = sub.querySelector('.quantity-number');
+            const subAmenityId = parseInt(input.name.match(/\d+/)[0], 10);
 
-                subAmenitiesContainer.appendChild(subAmenityDiv);
-                selectedSubAmenities[subAmenity.id] = 1;
-
-                addQuantityListeners(subAmenityDiv);
+            if (show) {
+                sub.style.display = 'block';
+                selectedSubAmenities[subAmenityId] = parseInt(input.value, 10);
+                addQuantityListeners(sub);
+            } else {
+                sub.style.display = 'none';
+                delete selectedSubAmenities[subAmenityId];
             }
         });
-    }
-    function removeSubAmenities(subAmenities) {
-        subAmenities.forEach(function (subAmenity) {
-            const subAmenityDiv = subAmenitiesContainer.querySelector(`[data-sub-amenity-id="${subAmenity.id}"]`);
-            if (subAmenityDiv) {
-                subAmenityDiv.remove();
-                delete selectedSubAmenities[subAmenity.id];
-            }
-        });
+
+        updateSubAmenitiesInput();
     }
 
     function addQuantityListeners(subAmenityDiv) {
@@ -133,47 +117,256 @@ document.addEventListener('DOMContentLoaded', function () {
         const minusBtn = subAmenityDiv.querySelector('.minus-btn');
         const input = subAmenityDiv.querySelector('.quantity-number');
 
-        plusBtn.addEventListener('click', function () {
-            input.value = parseInt(input.value, 10) + 1;
-            updateSubAmenityQuantity(input);
-        });
+        plusBtn.removeEventListener('click', handlePlusClick);
+        minusBtn.removeEventListener('click', handleMinusClick);
 
-        minusBtn.addEventListener('click', function () {
+        plusBtn.addEventListener('click', handlePlusClick);
+        minusBtn.addEventListener('click', handleMinusClick);
+
+        function handlePlusClick() {
+            input.value = parseInt(input.value, 10) ;
+            updateSubAmenityQuantity(input);
+        }
+
+        function handleMinusClick() {
             if (input.value > 1) {
-                input.value = parseInt(input.value, 10) - 1;
+                input.value = parseInt(input.value, 10) ;
                 updateSubAmenityQuantity(input);
             }
-        });
+        }
     }
+
     function updateSubAmenityQuantity(input) {
         const subAmenityId = parseInt(input.name.match(/\d+/)[0], 10);
         selectedSubAmenities[subAmenityId] = parseInt(input.value, 10);
+        updateSubAmenitiesInput();
+    }
+
+    function updateSubAmenitiesInput() {
         subAmenitiesInput.value = JSON.stringify(selectedSubAmenities);
-        // validateImageUpload();
     }
-    function validateImageUpload() {
-        const totalQuantity = Object.values(selectedSubAmenities).reduce((a, b) => a + b, 0);
-        const fileCount = imageInput.files.length;
-        if (fileCount !== totalQuantity) {
-            alert(`يجب عليك رفع ${totalQuantity} صور بالضبط.`);
-        }
-    }
-    // Validation for image input
-    imageInput.addEventListener('change', function () {
-        validateImageUpload();
-    });
 
-    // Optional: Add validation on form submit
+    function updatePrimaryAmenitiesInput() {
+        primaryAmenitiesInput.value = Array.from(selectedPrimaryAmenities).join(',');
+    }
+
+    function updateTotalQuantity() {
+        let totalQuantity = 0;
+        Object.values(selectedSubAmenities).forEach(quantity => {
+            totalQuantity += quantity;
+        });
+        return totalQuantity;
+    }
+
+    function updateImageUploadRequirement() {
+        const totalQuantity = updateTotalQuantity();
+        const existingImages = document.querySelectorAll('.existing-images .image-item').length;
+        const remainingQuantity = totalQuantity - existingImages;
+        const fileCount = imageInput.files.length;
+        // 
+        if (fileCount < remainingQuantity) {
+            const language = document.documentElement.lang;
+    
+            if (language === 'ar') {
+                numberOfImageElement.textContent = `مطلوب رفع ${totalQuantity} صورة كحد أدنى *`;
+            } else {
+                numberOfImageElement.textContent = `A minimum of ${totalQuantity} images is required *`;
+            }
+        }
+
+      
+        imageInput.required = remainingQuantity > 0;
+    }
     document.querySelector('form').addEventListener('submit', function (event) {
-        const totalQuantity = Object.values(selectedSubAmenities).reduce((a, b) => a + b, 0);
+        const totalQuantity = updateTotalQuantity();
+        const existingImages = document.querySelectorAll('.existing-images .image-item').length;
+        const remainingQuantity = totalQuantity - existingImages;
         const fileCount = imageInput.files.length;
-
-        if (fileCount !== totalQuantity) {
+    
+        if (fileCount < remainingQuantity) {
             event.preventDefault();
-            alert(`يجب عليك رفع ${totalQuantity} صور بالضبط.`);
+            const language = document.documentElement.lang;
+    
+            if (language === 'ar') {
+                alert(`مطلوب رفع ${remainingQuantity} صورة كحد أدنى *`);
+            } else {
+                alert(`A minimum of ${remainingQuantity} images is required *`);
+            }
         }
     });
+
+    // document.querySelector('form').addEventListener('submit', function (event) {
+    //     const totalQuantity = Object.values(selectedSubAmenities).reduce((a, b) => a + b, 0);
+    //     const fileCount = imageInput.files.length;
+
+    //     if (fileCount < totalQuantity) {
+    //         event.preventDefault();
+    //         const language = document.documentElement.lang;
+
+    //         if (language === 'ar') {
+    //             alert(`مطلوب رفع ${totalQuantity} صورة كحد أدنى *`);
+    //         } else {
+    //             alert(`A minimum of ${totalQuantity} images is required *`);
+    //         }
+    //     }
+    // });
+    // Remove Image from database
+    const removeImageButtons = document.querySelectorAll('.remove-file');
+
+    removeImageButtons.forEach(button => {
+        button.addEventListener('click', function (event) {
+            event.preventDefault();
+            const imageId = this.getAttribute('data-id');
+            const language = document.documentElement.lang;
+
+                    if (language === 'ar') {
+                        var message="هل تريد حذف الصورة؟";
+                    } else {
+                        var message="Are you sure you want to delete this image?";
+                    }
+            
+            if (confirm(message)) {
+                deleteImage(imageId, this);
+            }
+        });
+    });
+
+    function deleteImage(imageId, element) {
+        // AJAX request to remove the image
+        fetch(`/client/client-property/image/${imageId}/delete`, {
+            method: 'get',
+           
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const imageElement = element.closest('.image-item');
+                imageElement.remove();
+                updateImageUploadRequirement();
+            } else {
+                alert('Failed to delete the image.');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
 });
+
+
+
+
+// document.addEventListener('DOMContentLoaded', function () {
+//     const primaryAmenities = document.querySelectorAll('.box-icon');
+//     const primaryAmenitiesInput = document.getElementById('primaryAmenitiesInput');
+//     const subAmenitiesContainer = document.getElementById('subAmenitiesContainer');
+//     const subAmenitiesInput = document.getElementById('sub_amenities');
+//     const imageInput = document.getElementById('tf-upload-img');
+//     const preferredLanguage = 'ar'; // Replace 'ar' with 'en' or another language code as needed
+//     let selectedSubAmenities = {};
+//     let selectedPrimaryAmenities = new Set();
+//     primaryAmenities.forEach(function (box) {
+//         box.addEventListener('click', function () {
+//             const primaryAmenityId = box.getAttribute('data-id');
+//             const subAmenities = JSON.parse(box.getAttribute('data-sub-amenities'));
+//             if (selectedPrimaryAmenities.has(primaryAmenityId)) {
+//                 selectedPrimaryAmenities.delete(primaryAmenityId);
+//                 removeSubAmenities(subAmenities);
+//             } else {
+//                 selectedPrimaryAmenities.add(primaryAmenityId);
+//                 addSubAmenities(subAmenities);
+//             }
+
+//             primaryAmenitiesInput.value = Array.from(selectedPrimaryAmenities).join(',');
+
+//             subAmenitiesInput.value = JSON.stringify(selectedSubAmenities);
+
+//             // validateImageUpload();
+//         });
+//     });
+
+//     function addSubAmenities(subAmenities) {
+//         subAmenities.forEach(function (subAmenity) {
+//             if (!selectedSubAmenities[subAmenity.id]) {
+//                 const subAmenityDiv = document.createElement('div');
+//                 subAmenityDiv.classList.add('wg-box');
+//                 subAmenityDiv.setAttribute('data-sub-amenity-id', subAmenity.id);
+//                 const subAmenityName = subAmenity.name[preferredLanguage];
+
+//                 subAmenityDiv.innerHTML = `
+//                         <label class="title-user fw-6">${subAmenityName}</label>
+//                         <div class="box-quantity flex align-center">
+//                             <div class="quantity flex align-center">
+//                                 <a class="btn-quantity plus-btn"><i class="far fa-plus"></i></a>
+//                                 <div class="input-text">
+//                                     <input type="number" name="sub_amenities[${subAmenity.id}]" value="1" class="quantity-number" min="1">
+//                                 </div>
+//                                 <a class="btn-quantity minus-btn"><i class="far fa-minus"></i></a>
+//                             </div>
+//                         </div>
+//                     `;
+
+//                 subAmenitiesContainer.appendChild(subAmenityDiv);
+//                 selectedSubAmenities[subAmenity.id] = 1;
+
+//                 addQuantityListeners(subAmenityDiv);
+//             }
+//         });
+//     }
+//     function removeSubAmenities(subAmenities) {
+//         subAmenities.forEach(function (subAmenity) {
+//             const subAmenityDiv = subAmenitiesContainer.querySelector(`[data-sub-amenity-id="${subAmenity.id}"]`);
+//             if (subAmenityDiv) {
+//                 subAmenityDiv.remove();
+//                 delete selectedSubAmenities[subAmenity.id];
+//             }
+//         });
+//     }
+
+//     function addQuantityListeners(subAmenityDiv) {
+//         const plusBtn = subAmenityDiv.querySelector('.plus-btn');
+//         const minusBtn = subAmenityDiv.querySelector('.minus-btn');
+//         const input = subAmenityDiv.querySelector('.quantity-number');
+
+//         plusBtn.addEventListener('click', function () {
+//             input.value = parseInt(input.value, 10) + 1;
+//             updateSubAmenityQuantity(input);
+//         });
+
+//         minusBtn.addEventListener('click', function () {
+//             if (input.value > 1) {
+//                 input.value = parseInt(input.value, 10) - 1;
+//                 updateSubAmenityQuantity(input);
+//             }
+//         });
+//     }
+//     function updateSubAmenityQuantity(input) {
+//         const subAmenityId = parseInt(input.name.match(/\d+/)[0], 10);
+//         selectedSubAmenities[subAmenityId] = parseInt(input.value, 10);
+//         subAmenitiesInput.value = JSON.stringify(selectedSubAmenities);
+//         // validateImageUpload();
+//     }
+//     function validateImageUpload() {
+//         const totalQuantity = Object.values(selectedSubAmenities).reduce((a, b) => a + b, 0);
+//         const fileCount = imageInput.files.length;
+//         if (fileCount !== totalQuantity) {
+//             alert(`يجب عليك رفع ${totalQuantity} صور بالضبط.`);
+//         }
+//     }
+//     // Validation for image input
+//     imageInput.addEventListener('change', function () {
+//         validateImageUpload();
+//     });
+
+//     // Optional: Add validation on form submit
+//     document.querySelector('form').addEventListener('submit', function (event) {
+//         const totalQuantity = Object.values(selectedSubAmenities).reduce((a, b) => a + b, 0);
+//         const fileCount = imageInput.files.length;
+
+//         if (fileCount !== totalQuantity) {
+//             event.preventDefault();
+//             alert(`يجب عليك رفع ${totalQuantity} صور بالضبط.`);
+//         }
+//     });
+// });
 // ------------------------------------------------------------------------------------------------
 
 
@@ -285,37 +478,3 @@ document.addEventListener('DOMContentLoaded', function() {
 
    
 });
-// end 
-// primary property
-// document.addEventListener('DOMContentLoaded', function() {
-//     const selectedprimary= JSON.parse(document.getElementById('primaryAmenitiesInput').getAttribute('data-selected-primaryAmenities')) || [];
-
-//     function toggleprimaryAmenity(primaryId, element) {
-//         const index = selectedprimary.indexOf(primaryId);
-//         if (index > -1) {
-//             // If the feature is already selected, remove it
-//             selectedprimary.splice(index, 1);
-//             element.classList.remove('selected');
-//         } else {
-//             // If the feature is not selected, add it
-//             selectedprimary.push(primaryId);
-//             element.classList.add('selected');
-//         }
-
-//         // Update the hidden input with the selected features as a comma-separated string
-//         document.getElementById('primaryAmenitiesInput').value = selectedprimary.join(',');
-
-//         console.log('Selected Property Features:', selectedprimary); // Debugging output
-//     }
-
-//     // Attach click event listeners to all feature items
-//     const primaryElements = document.querySelectorAll('.primaryAmenities');
-//     primaryElements.forEach(element => {
-//         const primaryId = parseInt(element.getAttribute('data-primaryAmenity-id'));
-//         element.addEventListener('click', function() {
-//             toggleprimaryAmenity(primaryId, this);
-//         });
-//     });
-
-   
-// });

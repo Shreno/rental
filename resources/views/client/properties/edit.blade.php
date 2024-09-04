@@ -59,7 +59,7 @@ textarea, input[type=text], input[type=password], input[type=datetime], input[ty
                     <div class="tf-map bg-white">
                         <h3 class="titles">@lang('dashboard.property address')</h3>
                         <div class="info-box info-wg">
-                            <form onsubmit="return validateForm()" action="{{ isset($property) ? route('client-properties.update', $property->id) : route('client-properties.store') }}" method="POST" enctype="multipart/form-data">
+                            <form  action="{{ isset($property) ? route('client-properties.update', $property->id) : route('client-properties.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @if(isset($property))
                                     @method('PUT')
@@ -187,15 +187,15 @@ textarea, input[type=text], input[type=password], input[type=datetime], input[ty
                     {{--  --}}
                     <div class="two-in-one wrap-style bg-white"> 
                         <div class="tf-property-details">
-                            <h3 class="titles">تفاصيل العقار</h3>
+                            <h3 class="titles">@lang('dashboard.Property details')</h3>
                             <div class="wrap-info">
                                 <div class="info pt-sm-4">
                                     <h4 class="mb-sm-3">@lang('dashboard.primary-amenities')</h4>
-                                    <h5 class="mb-sm-3">اختر كل المرافق الموجودة فى العقار</h5>
+                                    <h5 class="mb-sm-3">@lang('dashboard.Choose all the facilities in the property')</h5>
                                 </div>
                                 <div class="select-img flex">
                                     @foreach($primaryAmenities as $index => $primaryAmenity)
-                                        <div style="margin-left:30px" class="box-icon" data-id="{{ $primaryAmenity->id }}" data-sub-amenities="{{ $primaryAmenity->subAmenities->toJson() }}">
+                                        <div style="margin-left:30px" class="box-icon primaryAmenitiesBox" data-id="{{ $primaryAmenity->id }}" data-sub-amenities="{{ $primaryAmenity->subAmenities->toJson() }}">
                                             <div class="inner flex option primaryAmenities align-center {{ isset($property) && $property->primaryAmenities->contains($primaryAmenity->id) ? 'selected' : '' }}"
                                                  data-primaryAmenity-id="{{ $primaryAmenity->id }}"
                                                  onclick="toggleprimaryAmenity({{ $primaryAmenity->id }}, this)">
@@ -221,20 +221,58 @@ textarea, input[type=text], input[type=password], input[type=datetime], input[ty
                             @enderror
                             </div>
                         </div>  
+                      
+                    </div>
+                    {{--  --}}
+                    <div class="two-in-one wrap-style bg-white"> 
                         <div class="tf-bedrooms">
-                            <h3 class="titles"> مرافق العقار الفرعية</h3>
-                            <div class="quantity-choise">
-                                <div id="subAmenitiesContainer"></div>
-                                <input type="hidden" id="sub_amenities" name="sub_amenities">
+                            <h3 class="titles">@lang('dashboard.Sub-property facilities')</h3>
+                            <div class="quantity-choise row" id="subAmenitiesContainer">
+                                @foreach($subAmenities as $subAmenitie)
+                                @php
+                                // Find the matching sub-amenity
+                                $Property_Sub_Amenity = $property->Property_Sub_Amenity->where('sub_amenity_id', $subAmenitie->id)->first();
+                                // Get the quantity, or default to 1 if not found
+                                $quantity = $Property_Sub_Amenity ? $Property_Sub_Amenity->number : 1;
+                               @endphp
+                                @if($property->subAmenities->contains($subAmenitie->id) )
+                                
+                                <div class="box col-md-6 subAmenitie" style="margin-bottom: 10px" data-id="{{ $subAmenitie->primary_amenity_id }}">
 
+                                    
+                                @else
+                                <div class="box col-md-6 subAmenitie" style="display:none;margin-bottom: 10px" data-id="{{ $subAmenitie->primary_amenity_id }}">
+
+                                @endif
+                                        <div class="wg-box">
+                                            <label class="title-user fw-6">{{ $subAmenitie->name }}</label>
+                                            <div class="box-quantity flex align-center">
+                                                <div class="quantity flex align-center">
+                                                    <a class="btn-quantity plus-btn"><i class="far fa-plus"></i></a>
+                                                    <div class="input-text">
+                                                        <input type="text" name="quantity[{{ $subAmenitie->id }}]" value="{{$quantity}}" class="quantity-number">
+                                                    </div>
+                                                    <a class="btn-quantity minus-btn"><i class="far fa-minus"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            
+                                <input type="hidden" id="sub_amenities" name="sub_amenities">
                             </div>
+                            
                             @error('sub_amenities')
-                            <span class="invalid-feedback text-danger" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
+                                <span class="invalid-feedback text-danger" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                     </div>
+
+
+
+                    {{--  --}}
                     {{-- start Handle  Selection Property Feature  --}}
 
                     <div class="two-in-one wrap-style bg-white">
@@ -349,23 +387,15 @@ textarea, input[type=text], input[type=password], input[type=datetime], input[ty
                         <div class="info-box info-wg">
                             <div class="inner-2 form-wg flex ">
                                 <div class="wg-box2 select-group">
-                                    <label class="title-user fw-5">@lang('dashboard.title') (@lang('dashboard.ar'))</label>
-                                    <input type="text" name="title[ar]" value="{{ old('title.ar', isset($property) ? $property->getTranslation('title', 'ar') : '') }}" class="form-control mb-2" />
-                                    @error('title[ar]')
+                                    <label class="title-user fw-5">@lang('dashboard.title')</label>
+                                    <input type="text" name="title" value="{{ old('title', isset($property) ? $property->getTranslation('title',App::getLocale()) : '') }}" class="form-control mb-2" />
+                                    @error('title')
                                     <span class="invalid-feedback text-danger" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                                 </div> 
-                                <div class="wg-box2 select-group">
-                                    <label class="title-user fw-5">@lang('dashboard.title') (@lang('dashboard.en')) </label>
-                                    <input type="text" name="title[en]" value="{{ old('title.en', isset($property) ? $property->getTranslation('title', 'en') : '') }}" class="form-control mb-2" />
-                                    @error('title[en]')
-                                    <span class="invalid-feedback text-danger" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                                </div> 
+    
                                
                               
                             </div> 
@@ -381,12 +411,12 @@ textarea, input[type=text], input[type=password], input[type=datetime], input[ty
                             
                             <div class="wg-box2 form-wg flex">
                                 <fieldset class="message-wrap">
-                                    <label class="fw-6">اكتب وصف مميز لعقارك (@lang('dashboard.ar'))</label>
-                                    <textarea name="description[ar]" id="comment-message" name="message" rows="4" tabindex="4" placeholder="مثـال : دخول ذاتى" aria-required="true">
-                                        {{ old('description.ar', isset($property) ? $property->getTranslation('description', 'ar') : '') }}
+                                    <label class="fw-6">@lang('dashboard.Write a unique description of your property') </label>
+                                    <textarea name="description" id="comment-message" name="message" rows="4" tabindex="4" placeholder="مثـال : دخول ذاتى" aria-required="true">
+                                        {{ old('description', isset($property) ? $property->getTranslation('description',App::getLocale()) : '') }}
                                     </textarea>
                                 </fieldset>
-                                @error('description.ar')
+                                @error('description')
                                 <span class="invalid-feedback text-danger" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -394,25 +424,13 @@ textarea, input[type=text], input[type=password], input[type=datetime], input[ty
                                 </div>
                             </div> 
                             <br>
-                            <div class="wg-box2 form-wg flex">
-                                <fieldset class="message-wrap">
-                                    <label class="fw-6">اكتب وصف مميز لعقارك (@lang('dashboard.en'))</label>
-                                    <textarea name="description[en]" id="comment-message" name="message" rows="4" tabindex="4" placeholder="مثـال : دخول ذاتى" aria-required="true">
-                                        {{ old('description.en', isset($property) ? $property->getTranslation('description', 'en') :'') }}
-                                    </textarea>
-                                </fieldset>
-                                @error('description.en')
-                                <span class="invalid-feedback text-danger" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                            </div>
+                         
                                 </div>
                             </div> 
                         </div>
                         <div class="tf-upload">
-                            <h3 class="titles">صور العقار</h3>
-                            <h4 class="titles">مطلوب رفع صورة واحدة كحد أدنى *</h4>
+                            <h3 class="titles">@lang('dashboard.Images Property')</h3>
+                            <h4 class="titles numberofImage">@lang('dashboard.A minimum of images is required')*</h4>
                             <div class="wrap-upload center">
                                 <div class="box-upload">
                                     <!-- Existing Images Display -->
@@ -436,7 +454,7 @@ textarea, input[type=text], input[type=password], input[type=datetime], input[ty
                                     </div>                      
                                     <div class="button-box relative" id="upload-profile">
                                         <a href="#" class="btn-upload sc-button">
-                                            <span>اختار الصور</span> 
+                                            <span>@lang('dashboard.Choose Images')</span>
                                         </a>
                                         <input id="tf-upload-img" type="file" accept="image/*" name="images[]" multiple>
                                     </div> 
@@ -446,8 +464,7 @@ textarea, input[type=text], input[type=password], input[type=datetime], input[ty
                                     </span>
                                     @enderror
                                     <div class="text-up-box">
-                                        <p class="text-color-2">أو اسحب الصور هنا</p>
-                                        <p>(ما يصل إلى X صور)</p>
+                                       
                                     </div>  
                                 </div>
                             </div> 
@@ -458,10 +475,10 @@ textarea, input[type=text], input[type=password], input[type=datetime], input[ty
                     <div class="tf-save">
                         <div class="wrap-button flex justify-center">
                             <button class="sc-button" name="submit" type="submit" >
-                                <span>إدراج الان</span>
+                                <span>@lang('dashboard.Insert now')</span>
                             </button>
                             <button class="sc-button btn-1" name="submit" type="submit">
-                                <span>حفظ & معاينة </span>
+                                <span> @lang('dashboard.Save & preview') </span>
                             </button>
                         </div>
                     </form>
@@ -473,7 +490,11 @@ textarea, input[type=text], input[type=password], input[type=datetime], input[ty
         </div>
     </section>
   </div>
-  <script src="{{asset('client/app/js/propertiesEdit.js')}}"></script>
+
    
   
+@endsection
+@section('scripts')
+<script src="{{asset('client/app/js/propertiesEdit.js')}}"></script>
+
 @endsection
