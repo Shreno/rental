@@ -229,7 +229,11 @@ return [
     "Sub-property facilities"=>"المرافق الفرعية",
     "Choose all the facilities in the property"=>"أختر جميع مرافق العقار",
     "Property details"=>"تفاصيل العقار ",
-    "A minimum of images is required"=>"مطلوب رفع صورة واحدة كحد أدنى "
+    "A minimum of images is required"=>"مطلوب رفع صورة واحدة كحد أدنى ",
+    "Upload a new avatar"=>"تحميل صورة رمزية جديدة",
+    "avatar"=>"الصورة الرمزية",
+    "No files were selected"=>"لم يتم إختيار اى ملفات",
+    "Information"=>'المعلومات'
 
 
 

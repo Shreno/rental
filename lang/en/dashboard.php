@@ -194,6 +194,7 @@ return [
     'select'      =>'select',
     'direction'        =>'direction',
     "Information about the property"=>"Information about the property",
+    "Information"=>"Information",
     "property description"=>"property description",
     "optional"=>"optional",
     "Please select at least one"=>"Please select at least one",
@@ -219,6 +220,9 @@ return [
     "Choose all the facilities in the property"=>"Choose all the facilities in the property",
     "Property details"=>"Property details",
     "A minimum of images is required"=>"A minimum of images is required",
+    "Upload a new avatar"=>"Upload a new avatar",
+    "avatar"=>"avatar",
+    "No files were selected"=>"No files were selected",
 
 
 

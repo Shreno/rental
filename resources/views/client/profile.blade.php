@@ -21,7 +21,7 @@
             <div class="row">                      
                 <div class="col-lg-12">
                     <div class="tf-uploads bg-white">
-                        <h3 class="titles">الصورة الرمزية</h3>
+                        <h3 class="titles">@lang('dashboard.avatar')</h3>
 
                         <div class="wrap-upload ">
                             <div class="box-upload flex">
@@ -29,14 +29,14 @@
                                     <img class="avatar" id="profileimg" src="{{ auth()->user()->image }}" alt="">                                    
                                 </div>  
                                 <div class="content">
-                                    <div class="subtitle">"تحميل صورة رمزية جديدة</div>
+                                    <div class="subtitle">@lang('dashboard.Upload a new avatar')</div>
                                     <div class="button-box relative flex align-center" id="upload-profile">
                                         <a href="#" class="btn-upload sc-button">
                                             <span class="fw-14 fw-6"> @lang('dashboard.image_requirments')</span> </a>
                                             <input id="tf-upload-img" type="file" name="image" >
-                                            <div class="">لم يتم اختيار أي ملفات</div> 
+                                            <div class="">@lang('dashboard.No files were selected')</div> 
                                     </div>
-                                    <p class="fs-12 lh-18">JPEG 100x100</p> 
+                                    {{-- <p class="fs-12 lh-18">JPEG 100x100</p>  --}}
                                     
                                 </div>                     
                             </div>              
@@ -44,7 +44,7 @@
                         
                     </div>
                     <div class="tf-infomation bg-white">
-                        <h3 class="titles">المعلومات</h3>
+                        <h3 class="titles">@lang('dashboard.Information')</h3>
                         <div class="info-box info-wg">
                             <div class="inner-1">
                                 <fieldset>
