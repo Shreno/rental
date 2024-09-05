@@ -123,42 +123,68 @@
                     
                     <div class="tf-new-listing ">
                         <div class="new-listing bg-white">
-                            <h3 class="titles">قائمة جديدة</h3>
+                            <h3 class="titles">@lang('dashboard.menu')</h3>
+                            <form method="get" action="{{route('client.dashboard')}}">
+                                <input type="hidden" name="search" value="search">
                             <div class="wrap-form wd-find-select date-wgs flex">
                                 <div class="form-group-1 search-form form-style relative">
                                     <i class="far fa-search"></i>
-                                    <input type="search" class="search-field" placeholder="...ابحث" value="" name="s" title="Search for" required="">
+                                    <input type="search" class="search-field" placeholder="@lang('dashboard.search_title', ['page_title' => __('dashboard.properties')])" value="{{isset($search_input)? $search_input: ""}}" name="search_input" title="Search for" >
                                 </div>
                                 <div class="form-group-2 form-style relative">
-                                    <input type="date" class="date-wg" name="date" value=""  required="">
-                                    <p class="p-date">من تاريخ</p>
+                                    <input type="date" class="date-wg" name="from_date" value="{{isset($from)? $from: ""}}"  >
+                                    <p class="p-date">@lang('dashboard.From Date')</p>
                                 </div>
                                 <div class="form-group-3 form-style relative">
-                                    <input type="date"  class="date-wg" name="date" value=""  required="">   
-                                    <p class="p-date">حتى تاريخ</p>      
+                                    <input type="date"  class="date-wg" name="to_date" value="{{isset($to)? $to: ""}}"  >   
+                                    <p class="p-date"> @lang('dashboard.To Date')</p>      
                                 </div>
                                 <div class="form-group-4">
                                     <div class="group-select">
-                                        <div class="nice-select" tabindex="0"><span class="current">الحالة</span>
+                                        @php
+                                         $selectedStatus = isset($status) && $status !== "" ? $status : -1;
+                                            @endphp
+                                        <div class="nice-select" tabindex="0"><span class="current">   
+                                        @if($selectedStatus == 1)
+                                            @lang('dashboard.Accepted')
+                                        @elseif($selectedStatus == 2)
+                                            @lang('dashboard.refused')
+                                        @elseif($selectedStatus == 0)
+                                            @lang('dashboard.On Waiting')
+                                        @else
+                                            @lang('dashboard.status')
+                                        @endif</span>
                                             <ul class="list style">                                                          
-                                                <li data-value class="option selected">الحالة</li>
-                                                <li data-value="recently" class="option">حديثاً</li>
-                                                <li data-value="yesterday" class="option ">الأمس</li>                                                                  
-                                                <li data-value="week" class="option">أسبوع</li>
+                                                <li data-value="" class="option {{ $selectedStatus==-1 ? 'selected' : '' }}">@lang('dashboard.status')</li>
+                                                <li data-value="1" class="option {{ $selectedStatus == 1 ? 'selected' : '' }}">@lang('dashboard.Accepted')</li>
+                                                <li data-value="2" class="option {{ $selectedStatus == 2 ? 'selected' : '' }}">@lang('dashboard.refused')</li>
+                                                <li data-value="0" class="option {{ $selectedStatus == 0 ? 'selected' : '' }}">@lang('dashboard.On Waiting')</li>
+                                    
                                             </ul>
+                                            <input type="hidden" name="status" id="status-input" value="{{ $selectedStatus }}">
                                         </div>
                                     </div> 
                                 </div>
+                               
                             </div>
-                            <div class="sub-text fs-12 lh-18 "><span class="one font-2 fw-7">{{count($properties)}}</span> <span>النتائج التي تم العثور عليها</span> </div>
+                            <div class="form-group-4 ">
+                                <div class="button-search sc-btn-top">
+                                    <button type="submit" class="sc-button" >
+                                        <span>@lang('dashboard.Search Now')</span>
+                                        <i class="far fa-search text-color-1"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            </form>
+                            <div class="sub-text fs-12 lh-18 "><span class="one font-2 fw-7">{{$totalPropertiesCount}}</span> <span>@lang('dashboard.Results found') </span> </div>
                             <div class="table-content">
                                 <div class="wrap-listing table-responsive">
                                 <table>
                                     <thead>
                                     <tr>
-                                        <th class="fw-6">القائمة</th>
-                                        <th class="fw-6">الحالة</th>
-                                        <th class="fw-6">الإجراء</th>
+                                        <th class="fw-6">@lang('dashboard.menu')</th>
+                                        <th class="fw-6">@lang('dashboard.status')</th>
+                                        <th class="fw-6">@lang('dashboard.actions')</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -172,7 +198,7 @@
                                             </div>
                                             <div class="content">
                                                 {{-- <h4 class="link-style-1"><a href="property-detail-v1.html">{{}}</a> </h4> --}}
-                                                <div class="text-date"><p class="p-12 text-color-2 lh-18">تاريخ النشر: 
+                                                <div class="text-date"><p class="p-12 text-color-2 lh-18">@lang('dashboard.Created Date'): 
                                                     @if(session()->get( 'lang' ) == "en")
 
                                                     {{ \Carbon\Carbon::parse($property->created_at)->translatedFormat('d F Y') }}
@@ -189,7 +215,7 @@
                                             @if($property->is_active==1)
 
                                         <div class="status-wrap">
-                                            <div class="button-status fs-12 fw-6 lh-18"> موافقة</div>
+                                            <div class="button-status fs-12 fw-6 lh-18"> @lang('dashboard.Accepted')</div>
                                         </div>
                                             
                                         @elseif($property->is_active==0) 
@@ -211,7 +237,7 @@
                                             <div class="icon-wrap">
                                                 <ul class="">
                                                 <li class="">
-                                                <a class="fw-6" href="{{route('client-properties.edit',$property->id)}}"><i class="far fa-pen"></i>تعديل</a>
+                                                <a class="fw-6" href="{{route('client-properties.edit',$property->id)}}"><i class="far fa-pen"></i>@lang('dashboard.edit')</a>
                                                 </li>
                                                 <li class="" >
 
@@ -220,12 +246,12 @@
 
  
                                                <a href="#" class="fw-6" onclick="event.preventDefault(); if(confirm('Are you sure you want to unpublish this property?')) { document.getElementById('delete-form-{{ $property->id }}').submit(); }">
-                                                <i class="fal fa-trash-alt"></i> عدم النشر
+                                                <i class="fal fa-trash-alt"></i>  @lang('dashboard.unpublish')
                                                </a>
 
                                                @else
                                                <a href="#" class="fw-6" onclick="event.preventDefault(); if(confirm('Are you sure you want to publish this property?')) { document.getElementById('delete-form-{{ $property->id }}').submit(); }">
-                                                <i class="fal fa-trash-alt"></i> النشر
+                                                <i class="fal fa-trash-alt"></i> @lang('dashboard.publish')
                                                </a>
                                                @endif
                                                 </li>
@@ -234,7 +260,7 @@
                                                @else
                                                 <li class="" >
                                                     <a href="#" class="fw-6" onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this property?')) { document.getElementById('delete-form-{{ $property->id }}').submit(); }">
-                                                        <i class="fal fa-trash-alt"></i> حذف
+                                                        <i class="fal fa-trash-alt"></i> @lang('dashboard.delete')
                                                     </a>
                                                     
                                                   
@@ -445,4 +471,24 @@
             </div>
         </div>
     </section>
+@endsection
+@section('scripts')
+<script>
+    document.querySelectorAll('.nice-select .option').forEach(option => {
+        option.addEventListener('click', function() {
+            let selectedValue = this.getAttribute('data-value');
+            document.getElementById('status-input').value = selectedValue;
+            
+            // Update the current display text
+            document.querySelector('.nice-select .current').textContent = this.textContent;
+            
+            // Remove the selected class from all options
+            document.querySelectorAll('.nice-select .option').forEach(opt => opt.classList.remove('selected'));
+            
+            // Add the selected class to the clicked option
+            this.classList.add('selected');
+        });
+    });
+</script>
+
 @endsection

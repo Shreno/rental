@@ -28,11 +28,58 @@ use Illuminate\Support\Facades\App;
 
 class PropertyController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $properties = Property::paginate(50);
-
-        return view('dashboard.properties.index', compact('properties'));
+    
+        // Handle search case
+        if ($request->search == 'search') {
+            $search_input = $request->search_input;
+            $from = $request->from_date;
+            $to = $request->to_date;
+            $status = $request->status;
+    
+            $properties = Property::where('user_id', auth()->user()->id);
+    
+            // Apply filters based on date range
+            if ($from != null) {
+                $properties = $properties->where('created_at', '>=', $from);
+            }
+            if ($to != null) {
+                $properties = $properties->where('created_at', '<=', $to);
+            }
+    
+            // Filter by status
+            if ($status != null) {
+                $properties = $properties->where('is_active', $status);
+            }
+    
+            // Search within title and description for both languages (ar and en)
+            if ($search_input != null) {
+                $properties = $properties->where(function ($query) use ($search_input) {
+                    $query->where('title->ar', 'LIKE', "%{$search_input}%")
+                          ->orWhere('title->en', 'LIKE', "%{$search_input}%")
+                          ->orWhere('description->ar', 'LIKE', "%{$search_input}%")
+                          ->orWhere('description->en', 'LIKE', "%{$search_input}%");
+                });
+            }
+    
+            // Get the total count of filtered properties
+            $totalPropertiesCount = $properties->count();
+    
+            // Paginate the filtered results
+            $properties = $properties->latest()->paginate(10);
+    
+            return view('client.properties.index', compact('totalPropertiesCount', 'properties', 'search_input', 'from', 'to', 'status'));
+    
+        } else {
+            // If no search, get total properties count
+            $totalPropertiesCount = Property::where('user_id', auth()->user()->id)->count();
+    
+            // Get paginated properties
+            $properties = Property::where('user_id', auth()->user()->id)->latest()->paginate(10);
+        }
+    
+        return view('client.properties.index', compact('totalPropertiesCount', 'properties',));
     }
 
     public function create()

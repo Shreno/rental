@@ -234,7 +234,14 @@ return [
     "avatar"=>"الصورة الرمزية",
     "No files were selected"=>"لم يتم إختيار اى ملفات",
     "Information"=>'المعلومات',
-    'menu'=>"القائمة"
+    'menu'=>"القائمة",
+    'publish'=>'نشر',
+    'unpublish'=>"عدم النشر",
+    "From Date"=>"من تاريخ",
+    "To Date"=>"حتى تاريخ",
+    "Results found"=>"النتائج التي تم العثور عليه",
+    "Search Now"=>"بحث الأن",
+    "Created Date"=>"تاريخ الإنشاء",
 
 
 

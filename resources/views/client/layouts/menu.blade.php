@@ -61,7 +61,19 @@
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M15.4985 19.25C18.2864 19.2577 20.1654 16.9671 20.1654 14.1518V7.85584C20.1654 5.04059 18.2864 2.75 15.4985 2.75H6.49891C3.711 2.75 1.83203 5.04059 1.83203 7.85584V14.1518C1.83203 16.9671 3.711 19.2577 6.49891 19.25H15.4985Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg> 
                 </span>
-                <span class="dash-titles">مراجعة</span>
+                <span class="dash-titles">@lang('dashboard.bookings')</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{route('client-properties.index')}}" class="tf-effect">
+                <span class="icon-applicant dash-icon">
+                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10.533 2.55658H7.10561C4.28686 2.55658 2.51953 4.55216 2.51953 7.37733V14.9985C2.51953 17.8237 4.27861 19.8192 7.10561 19.8192H15.1943C18.0222 19.8192 19.7813 17.8237 19.7813 14.9985V11.3062" stroke="#F1FAEE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M8.09012 10.0108L14.9404 3.16055C15.7938 2.30805 17.177 2.30805 18.0305 3.16055L19.146 4.27614C19.9995 5.12955 19.9995 6.51372 19.146 7.36622L12.2628 14.2495C11.8897 14.6226 11.3837 14.8325 10.8557 14.8325H7.42188L7.50804 11.3675C7.52087 10.8578 7.72896 10.372 8.09012 10.0108Z" stroke="#F1FAEE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M13.8984 4.21893L18.0839 8.40443" stroke="#F1FAEE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg> 
+                </span>
+                <span class="dash-titles">@lang('dashboard.properties')</span>
                 </a>
             </li>
             <li>
@@ -73,7 +85,7 @@
                         <path d="M13.8984 4.21893L18.0839 8.40443" stroke="#F1FAEE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg> 
                 </span>
-                <span class="dash-titles">إضافه عقار</span>
+                <span class="dash-titles">@lang('dashboard.create_title', ['page_title' => __('dashboard.properties')])</span>
                 </a>
             </li>
             <li>

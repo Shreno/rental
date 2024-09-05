@@ -225,6 +225,14 @@ return [
     "Upload a new avatar"=>"Upload a new avatar",
     "avatar"=>"avatar",
     "No files were selected"=>"No files were selected",
+    'publish'=>'publish',
+    'unpublish'=>"unpublish",
+    "From Date"=>"From Date",
+    "To Date"=>"To Date",
+    "Results found"=>"Results found",
+    "Search Now"=>"Search Now",
+    "Created Date"=>"Created Date",
+
 
 
 
