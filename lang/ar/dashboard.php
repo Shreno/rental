@@ -233,7 +233,8 @@ return [
     "Upload a new avatar"=>"تحميل صورة رمزية جديدة",
     "avatar"=>"الصورة الرمزية",
     "No files were selected"=>"لم يتم إختيار اى ملفات",
-    "Information"=>'المعلومات'
+    "Information"=>'المعلومات',
+    'menu'=>"القائمة"
 
 
 

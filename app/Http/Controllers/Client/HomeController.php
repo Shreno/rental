@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use App\Models\Property;
 use App\Repositories\IClientRepository;
+use App\Models\Booking;
 
 
 
@@ -35,11 +36,15 @@ class HomeController extends Controller
         $property_Active = Property::where('user_id', auth()->user()->id)->latest()->where('is_active',1)->count();
         $property_Inctive = Property::where('user_id', auth()->user()->id)->latest()->where('is_active',0)->count();
 
+        $property_refused= Property::where('user_id', auth()->user()->id)->latest()->where('is_active',2)->count();
+        $bookingcount=Booking::where('owner_id',auth()->user()->id)->count();
+
+
 
         $properties = Property::where('user_id', auth()->user()->id)
         ->latest()
-        ->paginate(5);
-        return view('client.home',compact('properties','property_Active','property_Inctive'));
+        ->paginate(10);
+        return view('client.home',compact('properties','property_Active','property_Inctive','property_refused','bookingcount'));
     }
     public function profile (){
         return view('client.profile');

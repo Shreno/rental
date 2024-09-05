@@ -25,7 +25,7 @@
                 </div>
             </div>
         </div>
-        <div class="title-2 fw-6">القائمة</div>
+        <div class="title-2 fw-6">@lang('dashboard.menu')</div>
         <ul class="downmenu list-unstyled" id="side-menu">
             <li>
                 <a href="{{route('client.dashboard')}}" class="tf-effect">
@@ -39,7 +39,7 @@
                         </g>
                     </svg>
                 </span>
-                <span class="dash-titles">لوحة التحكم</span>
+                <span class="dash-titles">@lang('dashboard.dashboard')</span>
                 </a>
             </li>
             <li>

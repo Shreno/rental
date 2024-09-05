@@ -8,7 +8,7 @@
         <div class="container7">
             <div class="row">                      
                 <div class="col-lg-12">
-                        <div class="title-group fs-30 lh-45 fw-7">لوحة التحكم</div>
+                        <div class="title-group fs-30 lh-45 fw-7"> @lang('dashboard.dashboard')</div>
                 </div> 
             </div>
         </div>
@@ -33,10 +33,10 @@
                                 </svg>
                             </div>
                             <div class="counter-box one ">
-                                <div class="title-count fw-6 fs-16 text-color-4">القائمة الخاصة بك</div>
+                                <div class="title-count fw-6 fs-16 text-color-4"> @lang('dashboard.Accepted')</div>
                                 <div class="count-number flex">                                  
-                                    <div class="number number-one" data-speed="2000" data-to="32" data-inviewport="yes"></div> 
-                                    <div class="sub-title fw-6 text-color-4">/50 متبقي</div>                                  
+                                    <div class="number number-one" data-speed="2000" data-to="{{$property_Active}}" data-inviewport="yes">{{$property_Active}}</div> 
+                                    {{-- <div class="sub-title fw-6 text-color-4">{{$property_Active}}</div>                                   --}}
                                 </div>                            
                             </div>
                         </div> 
@@ -57,11 +57,11 @@
                             <div class="counter-box one ">
                                 <div class="title-count fw-6 fs-16 text-color-4">@lang('dashboard.On Waiting')</div>
                                 <div class="count-number">                                  
-                                    <div class="number number-one" data-speed="2000" data-to="02" data-inviewport="yes">{{$property_Inctive}}</div>                                 
+                                    <div class="number number-one" data-speed="2000" data-to="{{$property_Inctive}}" data-inviewport="yes">{{$property_Inctive}}</div>                                 
                                 </div>                            
                             </div>
                         </div> 
-                        {{-- <div class="box tf-counter flex  bg-white">
+                        <div class="box tf-counter flex  bg-white">
                             <div class="icons">
                                 <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <g clip-path="url(#clip0_1523_44755)">
@@ -78,12 +78,12 @@
                                 </svg>
                             </div>
                             <div class="counter-box one ">
-                                <div class="title-count fw-6 fs-16 text-color-4">المفضلة</div>
+                                <div class="title-count fw-6 fs-16 text-color-4">@lang('dashboard.refused')</div>
                                 <div class="count-number">                                  
-                                    <div class="number number-one" data-speed="2000" data-to="06" data-inviewport="yes">06</div>                                 
+                                    <div class="number number-one" data-speed="2000" data-to="{{$property_refused}}" data-inviewport="yes">{{$property_refused}}</div>                                 
                                 </div>                            
                             </div>
-                        </div>  --}}
+                        </div> 
                         <div class="box tf-counter flex  bg-white">
                             <div class="icons">
                                 <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -99,9 +99,9 @@
                                 </svg>
                             </div>
                             <div class="counter-box one ">
-                                <div class="title-count fw-6 fs-16 text-color-4">المراجعات</div>
+                                <div class="title-count fw-6 fs-16 text-color-4">@lang('dashboard.bookings')</div>
                                 <div class="count-number">                                  
-                                    <div class="number number-one" data-speed="2000" data-to="1483" data-inviewport="yes"></div>                                 
+                                    <div class="number number-one" data-speed="2000" data-to="{{$bookingcount}}" data-inviewport="yes">{{$bookingcount}}</div>                                 
                                 </div>                            
                             </div>
                         </div> 

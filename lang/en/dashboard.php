@@ -7,6 +7,8 @@ return [
     'app_key_words'           => 'HWZN , website , application',
     'dashboard'               => 'Dashboard',
     'home'                    => 'Home',
+    'menu'                    => 'menu',
+
     'general'                 => 'General',
     'AR'                      => 'Arabic Data',
     'EN'                      => 'English Data',
