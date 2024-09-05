@@ -72,11 +72,34 @@ class PropertyController extends Controller
             return view('client.properties.index', compact('totalPropertiesCount', 'properties', 'search_input', 'from', 'to', 'status'));
     
         } else {
-            // If no search, get total properties count
-            $totalPropertiesCount = Property::where('user_id', auth()->user()->id)->count();
+            if(isset($request->status))
+            {
+                if($request->status=='pending')
+                {
+                     // If no search, get total properties count
+                       $totalPropertiesCount = Property::where('user_id', auth()->user()->id)->where('is_active',0)->count();
     
-            // Get paginated properties
-            $properties = Property::where('user_id', auth()->user()->id)->latest()->paginate(10);
+                          // Get paginated properties
+                      $properties = Property::where('user_id', auth()->user()->id)->latest()->where('is_active',0)->paginate(10);
+
+                }elseif($request->status=='rejected'){
+                       // If no search, get total properties count
+                        $totalPropertiesCount = Property::where('user_id', auth()->user()->id)->where('is_active',2)->count();
+    
+                         // Get paginated properties
+                       $properties = Property::where('user_id', auth()->user()->id)->latest()->where('is_active',2)->paginate(10);
+                       return view('client.properties.rejected', compact('totalPropertiesCount', 'properties',));
+
+                }
+
+            }else{
+                        // If no search, get total properties count
+                        $totalPropertiesCount = Property::where('user_id', auth()->user()->id)->count();
+    
+                          // Get paginated properties
+                         $properties = Property::where('user_id', auth()->user()->id)->latest()->paginate(10);
+            }
+           
         }
     
         return view('client.properties.index', compact('totalPropertiesCount', 'properties',));

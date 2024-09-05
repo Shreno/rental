@@ -234,7 +234,8 @@ return [
     "Created Date"=>"Created Date",
     "All properties"=>"All properties",
     "Rejected properties"=>"Rejected properties",
-    "Properties are pending"=>"Properties are pending"
+    "Properties are pending"=>"Properties are pending",
+    "Reason for rejection"=>"Reason for rejection",
 
 
 

@@ -244,7 +244,8 @@ return [
     "Created Date"=>"تاريخ الإنشاء",
     "All properties"=>"جميع العقارات",
     "Rejected properties"=>"العقارات المرفوضة",
-    "Properties are pending"=>"العقارات قيد الإنتظار"
+    "Properties are pending"=>"العقارات قيد الإنتظار",
+    "Reason for rejection"=>"سبب الرفض"
 
 
 
