@@ -33,10 +33,9 @@
                                 </svg>
                             </div>
                             <div class="counter-box one ">
-                                <div class="title-count fw-6 fs-16 text-color-4"> @lang('dashboard.Accepted')</div>
+                                <div class="title-count fw-6 fs-16 text-color-4"> @lang('dashboard.All properties')</div>
                                 <div class="count-number flex">                                  
-                                    <div class="number number-one" data-speed="2000" data-to="{{$property_Active}}" data-inviewport="yes">{{$property_Active}}</div> 
-                                    {{-- <div class="sub-title fw-6 text-color-4">{{$property_Active}}</div>                                   --}}
+                                    <div class="number number-one" data-speed="2000" data-to="{{$property_All}}" data-inviewport="yes">{{$property_All}}</div> 
                                 </div>                            
                             </div>
                         </div> 
@@ -55,7 +54,7 @@
                                 </svg>
                             </div>
                             <div class="counter-box one ">
-                                <div class="title-count fw-6 fs-16 text-color-4">@lang('dashboard.On Waiting')</div>
+                                <div class="title-count fw-6 fs-16 text-color-4">@lang('dashboard.Properties are pending')</div>
                                 <div class="count-number">                                  
                                     <div class="number number-one" data-speed="2000" data-to="{{$property_Inctive}}" data-inviewport="yes">{{$property_Inctive}}</div>                                 
                                 </div>                            
@@ -78,7 +77,7 @@
                                 </svg>
                             </div>
                             <div class="counter-box one ">
-                                <div class="title-count fw-6 fs-16 text-color-4">@lang('dashboard.refused')</div>
+                                <div class="title-count fw-6 fs-16 text-color-4">@lang('dashboard.Rejected properties')</div>
                                 <div class="count-number">                                  
                                     <div class="number number-one" data-speed="2000" data-to="{{$property_refused}}" data-inviewport="yes">{{$property_refused}}</div>                                 
                                 </div>                            

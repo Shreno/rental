@@ -35,7 +35,7 @@ class HomeController extends Controller
     {
        
             // Fetch counts for active, inactive, and refused properties
-            $property_Active = Property::where('user_id', auth()->user()->id)->where('is_active', 1)->count();
+            $property_All = Property::where('user_id', auth()->user()->id)->count();
             $property_Inctive = Property::where('user_id', auth()->user()->id)->where('is_active', 0)->count();
             $property_refused = Property::where('user_id', auth()->user()->id)->where('is_active', 2)->count();
             $bookingcount = Booking::where('owner_id', auth()->user()->id)->count();
@@ -78,7 +78,7 @@ class HomeController extends Controller
                 // Paginate the filtered results
                 $properties = $properties->latest()->paginate(10);
         
-                return view('client.home', compact('totalPropertiesCount', 'properties', 'property_Active', 'property_Inctive', 'property_refused', 'bookingcount', 'search_input', 'from', 'to', 'status'));
+                return view('client.home', compact('totalPropertiesCount', 'properties', 'property_All', 'property_Inctive', 'property_refused', 'bookingcount', 'search_input', 'from', 'to', 'status'));
         
             } else {
                 // If no search, get total properties count
@@ -88,7 +88,7 @@ class HomeController extends Controller
                 $properties = Property::where('user_id', auth()->user()->id)->latest()->paginate(10);
             }
         
-            return view('client.home', compact('totalPropertiesCount', 'properties', 'property_Active', 'property_Inctive', 'property_refused', 'bookingcount'));
+            return view('client.home', compact('totalPropertiesCount', 'properties', 'property_All', 'property_Inctive', 'property_refused', 'bookingcount'));
         }
     
     public function profile (){

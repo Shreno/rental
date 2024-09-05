@@ -242,6 +242,9 @@ return [
     "Results found"=>"النتائج التي تم العثور عليه",
     "Search Now"=>"بحث الأن",
     "Created Date"=>"تاريخ الإنشاء",
+    "All properties"=>"جميع العقارات",
+    "Rejected properties"=>"العقارات المرفوضة",
+    "Properties are pending"=>"العقارات قيد الإنتظار"
 
 
 

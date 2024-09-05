@@ -232,6 +232,9 @@ return [
     "Results found"=>"Results found",
     "Search Now"=>"Search Now",
     "Created Date"=>"Created Date",
+    "All properties"=>"All properties",
+    "Rejected properties"=>"Rejected properties",
+    "Properties are pending"=>"Properties are pending"
 
 
 
