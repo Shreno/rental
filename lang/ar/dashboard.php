@@ -245,7 +245,15 @@ return [
     "All properties"=>"جميع العقارات",
     "Rejected properties"=>"العقارات المرفوضة",
     "Properties are pending"=>"العقارات قيد الإنتظار",
-    "Reason for rejection"=>"سبب الرفض"
+    "Reason for rejection"=>"سبب الرفض",
+    "account number"=>"رقم الحساب",
+    "Iban"=>"أيبان (Iban)",
+    "select_bank"=>"أختر البنك",
+    "property"=>"العقار",
+    "Payment status"=>"حالة الدفع",
+    "Amount"=>"المبلغ",
+    "Net account"=>"صافى الحساب",
+    "Total amount"=>"المبلغ الإجمالى",
 
 
 

@@ -13,6 +13,8 @@ use App\Models\Booking;
 use App\Models\Payment;
 use App\Models\Setting;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\NotifyUser;
 
 use Illuminate\Support\Facades\Storage;
 
@@ -44,6 +46,7 @@ class BookingController extends Controller
     // 
     public function store(Request $request)
     {
+        
         
 
     // Validate and check for overlapping bookings
@@ -105,6 +108,25 @@ class BookingController extends Controller
         'owner_amount' => $ownerAmount,
         'status' => 'pending',
     ]);
+    // add notifuction to owner
+    $owner = User::find($property->user_id);
+
+    $notifyRequest=[
+        'type'=>'notify',
+        'title_ar'=>'تم حجز  العقار: ' . $property->getTranslation('title', 'ar'),
+        'title_en'=>'The property has been booking'.$property->getTranslation('title', 'en'),
+        'body_ar'=>'تم حجز عقار جديد يمكن الذهاب اليه عبر الرابط ',
+        'body_en'=>'A new property has been requested which can be accessed via the link ',
+    ];
+   
+
+
+        Notification::send($owner , new NotifyUser($notifyRequest));
+    
+
+
+    // end
+
 
     return redirect()->route('bookings.index')->with('success', 'Booking created successfully.');
     }

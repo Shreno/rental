@@ -56,8 +56,8 @@
                                 </div>
                             </th>
                             <th class="min-w-150px">@lang('dashboard.name')</th>
-                            <th class="min-w-150px">البنك</th>
-                            <th class="min-w-150px">رقم الحساب</th>
+                            <th class="min-w-150px">@lang('dashboard.bank')</th>
+                            <th class="min-w-150px">@lang('dashboard.account number')</th>
 
 
                             <th class="text-end min-w-70px">@lang('dashboard.actions')</th>

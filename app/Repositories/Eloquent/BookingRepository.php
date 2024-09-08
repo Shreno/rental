@@ -11,5 +11,10 @@ class BookingRepository extends BaseRepository implements IBookingRepository
     {
         $this->model = new Booking();
     }
+
+    public function booking_client()
+    {
+       return $this->model->where('owner_id',auth()->user()->id)->latest()->paginate(10);
+    }
     
 }

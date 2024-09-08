@@ -1032,6 +1032,11 @@ Route::group(['middleware' => ['auth',  'admin-lang' , 'client' ] , 'prefix' => 
     Route::resource('/client-properties', 'App\Http\Controllers\Client\PropertyController');
     Route::get('/client-property/image/{id}/delete', 'App\Http\Controllers\Client\PropertyController@delete_image')->name('image.destroy');
     Route::get('/client-notifications', 'App\Http\Controllers\Client\NotificationController@index')->name('client.notifications');
+    Route::resource('/client-bank-accounts', 'App\Http\Controllers\Client\BankAccountController');
+    Route::resource('/client-booking', 'App\Http\Controllers\Client\BookingController');
+
+
+    
 
     
 

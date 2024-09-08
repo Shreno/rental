@@ -67,7 +67,7 @@
                             <div class="inner-1">
                                 <fieldset>
                                     <label class="title-user fw-6">@lang('dashboard.password')</label>
-                                    <input type="password" name="password" value="  {{ auth()->user()->password }}" placeholder="Esther Howard" class="input-form" required>
+                                    <input type="password" name="password" value="" placeholder="" class="input-form" >
                                 </fieldset>
                             </div>
                           

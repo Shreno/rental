@@ -236,6 +236,17 @@ return [
     "Rejected properties"=>"Rejected properties",
     "Properties are pending"=>"Properties are pending",
     "Reason for rejection"=>"Reason for rejection",
+    "account number"=>"Account Number",
+    "Iban"=>"Iban",
+    "select_bank"=>"select bank",
+    "property"=>"property",
+    "Payment status"=>"Payment status",
+    "Amount"=>"Amount",
+    "Net account"=>"Net account",
+    "Total amount"=>"Total amount",
+    
+
+    
 
 
 

@@ -54,7 +54,7 @@
                 </a>
             </li>
             <li>
-                <a href="dashboard-review.html" class="tf-effect">
+                <a href="{{route('client-booking.index')}}" class="tf-effect">
                 <span class="icon-work dash-icon">
                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M16.4076 8.11353L12.3346 11.4255C11.5651 12.036 10.4824 12.036 9.71285 11.4255L5.60547 8.11353" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -89,7 +89,7 @@
                 </a>
             </li>
             <li>
-                <a href="#" class=" tf-effect">
+                <a href="{{route('client-bank-accounts.index')}}" class=" tf-effect">
                 <span class="icon-submit dash-icon">
                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M17.4808 17.4807C14.6793 20.2825 10.531 20.8878 7.13625 19.3178C6.6351 19.1161 6.22423 18.953 5.83362 18.953C4.74565 18.9594 3.39143 20.0144 2.68761 19.3114C1.98379 18.6075 3.03952 17.2522 3.03952 16.1577C3.03952 15.767 2.88291 15.3635 2.68116 14.8613C1.11046 11.4671 1.71663 7.31744 4.5181 4.51659C8.09433 0.939042 13.9045 0.939042 17.4808 4.51566C21.0635 8.09874 21.057 13.9041 17.4808 17.4807Z" stroke="#F1FAEE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -98,7 +98,7 @@
                         <path d="M7.2589 11.3786H7.26715" stroke="#F1FAEE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </span>
-                <span class="dash-titles">رسالة</span>
+                <span class="dash-titles">@lang('dashboard.bank_accounts')</span>
                 </a>
             </li>
             <li>

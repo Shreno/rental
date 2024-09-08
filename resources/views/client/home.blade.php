@@ -101,7 +101,7 @@
 
                             </div>
                             <div class="counter-box one ">
-                                <div class="title-count fw-6 fs-16 text-color-4">@lang('dashboard.bookings')</div>
+                                <div class="title-count fw-6 fs-16 text-color-4"><a href="{{route('client-booking.index')}}">@lang('dashboard.bookings')</a></div>
                                 <div class="count-number">                                  
                                     <div class="number number-one" data-speed="2000" data-to="{{$bookingcount}}" data-inviewport="yes">{{$bookingcount}}</div>                                 
                                 </div>                            
@@ -313,7 +313,7 @@
                         </div>
                         
                     </div>
-                    <div class="tf-sidebar">
+                    {{-- <div class="tf-sidebar">
                         
                         <div class="messages-sidebar bg-white">
                             <h3 class="titles">الرسائل</h3>
@@ -468,7 +468,7 @@
                                 </li>
                             </ul>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>

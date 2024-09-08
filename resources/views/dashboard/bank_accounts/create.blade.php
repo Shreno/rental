@@ -48,12 +48,12 @@
                           
                           
                             <div class="mb-5 fv-row">
-                                <label class="form-label">رقم الحساب</label>
+                                <label class="form-label"> @lang('dashboard.account number')</label>
                                 <input type="text" name="account_number" value="{{old('account_number', isset($bank_account) ? $bank_account->account_number : '') }}" class="form-control mb-2">
                                 
                             </div>
                             <div class="mb-5 fv-row">
-                                <label class="form-label">IBan</label>
+                                <label class="form-label">@lang('dashboard.Iban')</label>
                                 <input type="text" value="{{ old('iban', isset($bank_account) ? $bank_account->iban : '') }}" name="iban" class="form-control mb-2">
                             </div>                           
                             <button type="submit" class="btn btn-primary">{{ __('dashboard.save_changes') }}</button>
