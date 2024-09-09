@@ -18,8 +18,18 @@ use Illuminate\Support\Facades\Route;
 
 
 
+// website routes
+Route::group(['middleware' => [  'admin-lang' , 'web'] , 'namespace' => 'Website'], function () {
 
 Route::get('/', "ForntEndController@home")->name('homepage');
+Route::get('about_us', "AboutUsController@index")->name('about_us');
+Route::get('contact_us', "ContactUsController@index")->name('contact_us');
+Route::resource('all-properties', "PropertiesController");
+Route::get('website/set-lang/{lang}', 'ForntEndController@SetLanguage');
+
+});
+
+
 
 // Auth::routes();
 Route::group(['middleware' => ['web']] , function () {

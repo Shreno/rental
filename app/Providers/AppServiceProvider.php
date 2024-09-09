@@ -16,6 +16,9 @@ use App\Models\Notification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Schema;
+use App\Services\SettingService;
+use App\Models\Setting;
+
 
 
 
@@ -73,6 +76,11 @@ class AppServiceProvider extends ServiceProvider
                 // Share the notifications with the view
                 $view->with('notificationsBar', $notificationsBar);
             }
+            // 
+            $settings =  SettingService::appInformations( Setting::pluck('value', 'key'));
+            $view->with('settings', $settings);
+
+
         });
 
     }

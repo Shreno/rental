@@ -28,4 +28,9 @@ class PropertyFeature extends Model
     {
         return asset('storage/'.$value);
     }
+    public function property()
+    {
+        return $this->belongsToMany(Property::class, 'property_property_feature');
+
+    }
 }

@@ -1,0 +1,34 @@
+@font-face {
+    font-family: 'SF Arabic';
+    src: url('../../../assets/fonts/SFArabic-Regular.woff2') format('woff2'),
+        url('../../../assets/fonts/SFArabic-Regular.woff') format('woff');
+        font-weight: normal;   
+        font-style: normal;   
+}
+@font-face {
+    font-family: 'SF Arabic Rounded';
+    src: url('../../../assets/fonts/SFArabicRounded-Regular.woff2') format('woff2'),
+        url('../../../assets/fonts/SFArabicRounded-Regular.woff') format('woff');
+        font-weight: normal;   
+        font-style: normal;   
+}   
+
+$font-1: 'SF Arabic', sans-serif;
+$font-2: 'SF Arabic Rounded', sans-serif;
+$font-3: 'Poppins', sans-serif;
+
+
+
+$color-1: #fff;
+$color-2: #bde0fe;
+$color-3: #2C8FDB;
+$color-4: #8E8E93;
+$color-5: #E5E5EA;
+$color-6: #222339;
+$color-7: #3A3A3C;
+$color-8: #EFEFEF;
+$color-9: #FF8B81;
+$color-10: #120A21;
+$bg-color: #FFF4E7;
+$bg-color2: #FFE8CE;
+
