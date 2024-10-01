@@ -37,7 +37,7 @@ Route::group(['middleware' => ['web']] , function () {
     Route::post('admin-login', [LoginController::class, 'login'])->name('admin-login');
 });
 
-Route::group(['middleware' => ['auth',  'admin-lang' , 'web' , 'check-role'] , 'namespace' => 'Dashboard'], function () {
+Route::group(['middleware' => ['auth' , 'web' , 'check-role'] , 'namespace' => 'Dashboard'], function () {
 
     Route::get('logout', [LoginController::class, 'logout'])->name('logout');
     Route::get('edit-profile', [AdminController::class, 'editProfile'])->name('edit-profile');
